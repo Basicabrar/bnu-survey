@@ -1216,14 +1216,16 @@
             contentDiv.innerHTML = html;
             // ----- This is the part that sends data to Google Sheets -----
             function sendToGoogleSheets(data) {
-               const url = 'https://script.google.com/macros/s/AKfycby0hVYZZ69pn6AgKnwhZfE4TfPn1ZXoKRAZOwiHkW32TGA73zjO_sjKWqEO_pEemmC4/exec';
-                fetch(url, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(data)
-                }).catch(err => console.error('Submit error:', err));
-            }
+    const url = 'https://script.google.com/macros/s/AKfycby0hVYZZ69pn6AgKnwhZfE4TfPn1ZXoKRAZOwiHkW32TGA73zjO_sjKWqEO_pEemmC4/exec';
+    fetch(url, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+    })
+    .then(response => console.log('Fetch succeeded, but no-cors hides response'))
+    .catch(err => console.error('Fetch error:', err));
+}
             document.getElementById('finalSubmitBtn').addEventListener('click', () => {
                 if (completed) return;
                 completed = true;

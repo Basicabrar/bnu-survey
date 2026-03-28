@@ -1,0 +1,1285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BNU UIC Survey | Faculty of Education</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Noto+Serif+Bengali:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ===== all your original styles go here (same as before) ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #FEF9F0;
+            font-family: 'Inter', 'Noto Serif Bengali', sans-serif;
+            color: #34261D;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1rem;
+            background-size: cover;
+            background-position: center 30%;
+            background-repeat: no-repeat;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 248, 240, 0.65);
+            z-index: -1;
+        }
+
+        .survey-container {
+            max-width: 880px;
+            width: 100%;
+            margin: 0 auto;
+            animation: fadeSlideIn 0.35s ease-out;
+        }
+
+        @keyframes fadeSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .survey-card {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(8px);
+            border-radius: 28px;
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            padding: 2rem 2rem 1.8rem;
+        }
+
+        .survey-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid rgba(230, 180, 34, 0.5);
+        }
+
+        .logo-area {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+
+        .logo-area img {
+            height: 65px;
+            width: auto;
+            object-fit: contain;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+        }
+
+        .lang-toggle {
+            display: flex;
+            gap: 0.5rem;
+            background: rgba(245, 239, 228, 0.6);
+            padding: 0.3rem;
+            border-radius: 50px;
+            backdrop-filter: blur(2px);
+        }
+
+        .lang-toggle button {
+            background: transparent;
+            border: none;
+            padding: 0.5rem 1.2rem;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: #34261D;
+        }
+
+        .lang-toggle button.active {
+            background: #E4A835;
+            color: white;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+
+        .progress-section {
+            margin-bottom: 2rem;
+        }
+
+        .progress-bar {
+            background: rgba(233, 224, 212, 0.6);
+            border-radius: 30px;
+            height: 5px;
+            width: 100%;
+        }
+
+        .progress-fill {
+            background: #E4A835;
+            width: 0%;
+            height: 5px;
+            border-radius: 30px;
+            transition: width 0.2s ease;
+        }
+
+        .page-indicator {
+            font-size: 0.7rem;
+            color: #34261D;
+            margin-top: 6px;
+            text-align: right;
+            font-weight: 500;
+        }
+
+        .question {
+            margin-bottom: 2rem;
+        }
+
+        .question-title {
+            font-weight: 600;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            color: #34261D;
+        }
+
+        .bilingual-block {
+            margin-bottom: 1.2rem;
+        }
+
+        .bn-text {
+            font-size: 1rem;
+            font-weight: 500;
+            color: #34261D;
+            margin-bottom: 0.3rem;
+        }
+
+        .en-text {
+            font-size: 0.85rem;
+            color: #4A2A1A;
+            border-left: 3px solid #E4A835;
+            padding-left: 0.8rem;
+            margin-top: 0.2rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+
+        .option {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 12px;
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 10px;
+            border: 1px solid rgba(233, 219, 202, 0.6);
+            cursor: pointer;
+            backdrop-filter: blur(2px);
+        }
+
+        input[type="radio"], input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        label {
+            cursor: pointer;
+            flex: 1;
+            font-size: 0.9rem;
+            color: #34261D;
+        }
+
+        input[type="text"], input[type="email"], textarea, select {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid rgba(208, 219, 230, 0.8);
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: 0.9rem;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(2px);
+        }
+
+        .matrix-row {
+            margin-bottom: 1.2rem;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 12px;
+            padding: 0.8rem;
+            backdrop-filter: blur(2px);
+        }
+
+        .matrix-label {
+            font-weight: 500;
+            margin-bottom: 0.6rem;
+            color: #34261D;
+        }
+
+        .matrix-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            margin-top: 0.3rem;
+        }
+
+        .matrix-options label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.8rem;
+            background: rgba(255, 255, 255, 0.5);
+            padding: 4px 12px;
+            border-radius: 30px;
+            border: 1px solid rgba(233, 219, 202, 0.8);
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+            padding-top: 0.5rem;
+        }
+
+        button {
+            background: rgba(240, 231, 220, 0.8);
+            border: none;
+            padding: 10px 28px;
+            border-radius: 40px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: #34261D;
+            backdrop-filter: blur(2px);
+        }
+
+        button.next-btn {
+            background: #E4A835;
+            color: #34261D;
+            font-weight: 600;
+        }
+
+        button:hover {
+            transform: translateY(-1px);
+            filter: brightness(0.96);
+        }
+
+        .didyouknow-wrapper {
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(240, 229, 214, 0.8);
+        }
+
+        .didyouknow {
+            font-size: 0.75rem;
+            color: #34261D;
+            line-height: 1.4;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        hr {
+            margin: 1rem 0;
+            border-color: rgba(240, 229, 214, 0.6);
+        }
+
+        .required-star {
+            color: #E4A835;
+            margin-left: 4px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="survey-container" id="surveyContainer">
+    <div class="survey-card">
+        <div class="survey-header">
+            <div class="logo-area">
+                <img src="https://drive.google.com/uc?export=view&id=1YUOTWbEsPw34PVZgRqLGBJgP4FjYYqPY" alt="Faculty of Education BNU">
+            </div>
+            <div class="lang-toggle" id="langToggle">
+                <button data-lang="en" class="active">English</button>
+                <button data-lang="bn">বাংলা</button>
+            </div>
+        </div>
+
+        <div class="progress-section">
+            <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+            <div class="page-indicator" id="pageIndicator">Page 1 / 13</div>
+        </div>
+
+        <div id="mainContent"></div>
+
+        <div class="nav-buttons">
+            <button id="prevBtn" style="visibility:hidden;">← Previous</button>
+            <button id="nextBtn" class="next-btn">Next →</button>
+        </div>
+
+        <div class="didyouknow-wrapper hidden" id="didYouKnowWrapper">
+            <div class="didyouknow" id="didYouKnowText"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // --------------------------------------------------------------
+    // BACKGROUND IMAGES (User-provided)
+    // --------------------------------------------------------------
+   const backgroundImages = [
+    "https://drive.google.com/uc?export=view&id=1vKvx3ubYU8e9DTKM4jqfkuUQkBE6nKQm",
+    "https://drive.google.com/uc?export=view&id=1lZoKeaVaE1j50FdtGij_ZN323OXk8OJM",
+    "https://drive.google.com/uc?export=view&id=1DuhuWg-38taQxWGzXRkXE-f-7uZdAjid",
+    "https://drive.google.com/uc?export=view&id=1Bq4SSRC3A-m57HIzMA1UFVwetqmoYUew",
+    "https://drive.google.com/uc?export=view&id=1zEZ5y3rmwIXIPNr28Sp2GO2VcpJdvg12",
+    "https://drive.google.com/uc?export=view&id=1wrE0GisEg3zDQ7l6J-nEtex3EV6IxTeC",
+    "https://drive.google.com/uc?export=view&id=19O8AW7QzAd-QnTh6JINxpqG3NyQt-BKH",
+    "https://drive.google.com/uc?export=view&id=1d5xfG9NE2kX8o-2DERYYq-SkZBZpzEjs",
+    "https://drive.google.com/uc?export=view&id=10dFQk864WVFhovYNapRJw-5KI8W5Bs4_",
+    "https://drive.google.com/uc?export=view&id=1I5WgA9rdtSf7PCAtNu1aNFY_RIVV10mM",
+    "https://drive.google.com/uc?export=view&id=1nibvFswrkRXH_xvglexE4n-yMGSyUkeI",
+    "https://drive.google.com/uc?export=view&id=1ak-qVKd0azfgUggEnbQkGqP6ejLJQYte",
+    "https://drive.google.com/uc?export=view&id=1CiwkUY39FtXbdJUK5q5saJbLpFHirmIj"
+];
+
+    function updateBackground(pageIndex) {
+        const idx = pageIndex % backgroundImages.length;
+        const imgUrl = backgroundImages[idx];
+        document.body.style.backgroundImage = `url('${imgUrl}')`;
+        document.body.style.backgroundSize = "cover";
+        document.body.style.backgroundPosition = "center 30%";
+    }
+
+    // --------------------------------------------------------------
+    // SURVEY STATE
+    // --------------------------------------------------------------
+    let currentLang = 'en';
+    let currentPage = 0;
+    let totalPages = 13;
+    let surveyData = {};
+    let completed = false;
+
+    // Did You Know facts (keep yours)
+    const didYouKnowFacts = {
+        en: [
+            "Beijing Normal University's Faculty of Education is ranked 7th globally and 1st in China by QS World University Rankings.",
+            "Founded in 1902, BNU is the first modern teacher training institution in Chinese history.",
+            "BNU proposed the establishment of Teachers' Day in China, now celebrated nationwide.",
+            "BNU's Education discipline received the highest A+ rating in China's official subject assessment.",
+            "BNU has partnerships with over 300 universities worldwide, including Oxford and Stanford.",
+            "BNU operates a dual-campus model: historic Beijing campus and modern Zhuhai campus in the Greater Bay Area.",
+            "The university is home to six A+ rated national disciplines, including Education, Psychology, and Geography.",
+            "BNU faculty are leaders in both research and industry engagement, bridging theory and practice."
+        ],
+        bn: [
+            "বেইজিং নর্মাল ইউনিভার্সিটির শিক্ষা অনুষদ QS World University Ranking-এ বিশ্বে ৭ম এবং চীনে ১ম স্থান অধিকার করেছে।",
+            "১৯০২ সালে প্রতিষ্ঠিত, BNU চীনের ইতিহাসে প্রথম আধুনিক শিক্ষক প্রশিক্ষণ প্রতিষ্ঠান।",
+            "BNU-ই চীনে 'শিক্ষক দিবস' প্রতিষ্ঠার প্রস্তাব করেছিল, যা এখন দেশব্যাপী পালিত হয়।",
+            "BNU-র শিক্ষা বিষয়টি চীনের সরকারি মূল্যায়নে সর্বোচ্চ A+ রেটিং পেয়েছে।",
+            "BNU-র বিশ্বব্যাপী ৩০০টিরও বেশি বিশ্ববিদ্যালয়ের সাথে অংশীদারিত্ব রয়েছে,其中包括 অক্সফোর্ড ও স্ট্যানফোর্ড।",
+            "BNU দ্বৈত-ক্যাম্পাস মডেল পরিচালনা করে: ঐতিহাসিক বেইজিং ক্যাম্পাস এবং আধুনিক ঝুহাই ক্যাম্পাস।",
+            "বিশ্ববিদ্যালয়টিতে ছয়টি A+ জাতীয় পর্যায়ের বিষয় রয়েছে, যার মধ্যে শিক্ষা ও মনোবিজ্ঞান উল্লেখযোগ্য।",
+            "BNU-র শিক্ষকরা গবেষণা ও শিল্প-সংযোগে নেতৃত্ব দেন, যা তত্ত্ব ও ব্যবহারিকতার সেতুবন্ধন করে।"
+        ]
+    };
+
+    // Consent content (exact from your file)
+    const consentContent = {
+        en: {
+            title: "Introduction and Consent",
+            paragraphs: [
+                "Dear Participant,",
+                "Thank you for participating in this research study about University-Industry Collaboration (UIC) in Bangladesh. This survey examines how students perceive and experience UIC activities such as internships, industry projects, company visits, guest lectures, and industry-led courses, and how these experiences relate to employability.",
+                "Important Information:",
+                "• Your responses will be kept confidential by the researchers and will be used solely for academic research purposes.",
+                "• Participation is entirely voluntary. You may stop at any time without consequence.",
+                "• The survey will take approximately 20 minutes to complete.",
+                "• There are no right or wrong answers. We value your honest opinions and experiences.",
+                "• Soon after you complete the survey, you will be sent an SMS and will be given a BDT 20 recharge on your mobile number (you must finish the entire survey). Additionally, among all respondents, we will select one winner of a lottery amounting to TK. 10,000. Thank you so much for your time and consideration.",
+                "By proceeding with this survey, you confirm that:",
+                "• You are a recent (during the past two years) graduate from a Bangladeshi university or are currently enrolled as an undergraduate or Master's student at a university in Bangladesh.",
+                "• You consent to participate and allow your anonymized responses to be used in research publications.",
+                "• You understand that you can withdraw at any time without penalty.",
+                "Please note that no personal/traceable information you provide here will be shared with an external party without your prior written consent.",
+                "For further inquiries, email us at chesban109@gmail.com."
+            ],
+            consentLabel: "I confirm that I meet the eligibility criteria and I consent to participate."
+        },
+        bn: {
+            title: "ভূমিকা ও সম্মতিপত্র",
+            paragraphs: [
+                "প্রিয় অংশগ্রহণকারী,",
+                "বাংলাদেশে বিশ্ববিদ্যালয়-শিল্প সহযোগিতা/যৌথ প্রকল্প(UIC) নিয়ে পরিচালিত এই গবেষণায় আপনার মূল্যবান অংশগ্রহণের জন্য আন্তরিক ধন্যবাদ। এই জরিপে আমরা জানতে চাই: আপনি ইন্টার্নশিপ, শিল্প-প্রকল্প, কোম্পানি পরিদর্শন, অতিথি বক্তৃতা কিংবা কোম্পানি পরিচালিত কোর্সের মতো UIC কার্যক্রমগুলো কীভাবে অনুভব করেন এবং সেই অভিজ্ঞতাগুলো আপনার চাকরির জগতে প্রবেশের আত্মবিশ্বাসকে কীভাবে গড়ে তোলে।",
+                "গুরুত্বপূর্ণ তথ্য:",
+                "• আপনার সব উত্তর সম্পূর্ণ গোপনীয় থাকবে এবং শুধুমাত্র একাডেমিক গবেষণার কাজে ব্যবহৃত হবে।",
+                "• এই জরিপে অংশগ্রহণ সম্পূর্ণ স্বেচ্ছামূলক; আপনি যেকোনো সময় বিনা কারণে থামতে পারবেন।",
+                "• জরিপটি সম্পন্ন করতে প্রায় ২০ মিনিট সময় লাগবে।",
+                "• কোনো উত্তর সঠিক বা ভুল নয়, আপনার নিজস্ব অভিজ্ঞতা ও অনুভূতিটাই এখানে সবচেয়ে গুরুত্বপূর্ণ।",
+                "• কৃতজ্ঞতাস্বরূপ, জরিপ সম্পন্ন করার পরপরই আপনার মোবাইলে BDT ২০ রিচার্জ পাঠানো হবে। এছাড়াও সকল অংশগ্রহণকারীর মধ্য থেকে লটারিতে একজন ভাগ্যবান বিজয়ী TK. ১০,০০০ পাবেন।",
+                "এগিয়ে যাওয়ার মাধ্যমে আপনি নিশ্চিত করছেন যে:",
+                "• আপনি গত দুই বছরের মধ্যে বাংলাদেশের কোনো বিশ্ববিদ্যালয় থেকে স্নাতক হয়েছেন অথবা বর্তমানে স্নাতক বা মাস্টার্স পর্যায়ে পড়াশোনা করছেন।",
+                "• আপনি আপনার বেনামী উত্তরগুলো গবেষণা প্রকাশনায় ব্যবহারে সম্মতি দিচ্ছেন।",
+                "• আপনি জানেন যে আপনি যেকোনো মুহূর্তে, কোনো জরিমানা ছাড়াই, অংশগ্রহণ থেকে সরে আসতে পারবেন।",
+                "আপনার দেওয়া কোনো ব্যক্তিগত বা শনাক্তযোগ্য তথ্য আপনার পূর্ব লিখিত অনুমতি ছাড়া কোনো তৃতীয় পক্ষের সাথে ভাগ করা হবে না।",
+                "কোনো প্রশ্ন থাকলে ইমেইল করুন: chesban109@gmail.com"
+            ],
+            consentLabel: "আমি নিশ্চিত করছি যে আমি যোগ্যতার শর্ত পূরণ করি এবং আমি অংশগ্রহণে সম্মতি দিচ্ছি।"
+        }
+    };
+
+    // UIC Definition for Page 2
+    const uicDefinition = {
+        en: "Definition: University-Industry Collaboration (UIC) refers to any partnership or interaction between a university and businesses/industries — internships, industry projects, company visits, guest lectures, career fairs, mentorship programs, joint research, etc.",
+        bn: "সংজ্ঞা: বিশ্ববিদ্যালয়-শিল্প সহযোগিতা (UIC) বলতে বোঝায় বিশ্ববিদ্যালয় ও ব্যবসা-প্রতিষ্ঠান বা শিল্পখাতের মধ্যে যেকোনো ধরনের অংশীদারিত্ব বা পারস্পরিক সম্পর্ক। এর মধ্যে রয়েছে ইন্টার্নশিপ, শিল্প-সংযুক্তি, শিল্প-স্পনসরড প্রকল্প, শিল্পভিত্তিক কোর্স মডিউল, কোম্পানি পরিদর্শন, পেশাদার অতিথি বক্তৃতা, ক্যারিয়ার মেলা, মেন্টরশিপ কার্যক্রম এবং যৌথ গবেষণা।"
+    };
+
+    // Q8-Q22 items (UIC participation)
+    const uicActivities = {
+        en: [
+            "I completed a formal internship or industrial attachment with a company.",
+            "I worked on a course-related project supervised or sponsored by an industry partner.",
+            "I attended guest lectures or seminars delivered by industry professionals.",
+            "My class had company visits, factory tours, or site visits.",
+            "I participated in industry-run competitions, case competitions, or hackathons.",
+            "I took an industry-led module or short course as part of my program.",
+            "My instructors assigned industry-realistic projects or case studies.",
+            "I received mentorship or supervision from an industry professional.",
+            "I participated in joint university-industry research or consultancy activities.",
+            "I attended career fairs or employer recruitment events organized by my university.",
+            "Industry representatives were involved in assessing my work (e.g., project presentations, evaluations).",
+            "I used industry-provided equipment, software, or laboratories as part of my coursework.",
+            "I received funding or scholarships sponsored by industry for my studies or projects.",
+            "I had opportunities to network with company representatives through university events.",
+            "My university facilitated placements or internship opportunities with companies."
+        ],
+        bn: [
+            "আমি কোনো প্রতিষ্ঠানে আনুষ্ঠানিকভাবে ইন্টার্নশিপ বা শিল্প-সংযুক্তি সম্পন্ন করেছি।",
+            "কোনো শিল্প অংশীদারের তত্ত্বাবধানে বা পৃষ্ঠপোষকতায় পরিচালিত কোর্স-প্রকল্পে আমি কাজ করেছি।",
+            "শিল্পখাতের পেশাদার ব্যক্তিদের দেওয়া অতিথি বক্তৃতা বা সেমিনারে আমি অংশ নিয়েছি।",
+            "আমার ক্লাসের পক্ষ থেকে কোম্পানি পরিদর্শন, কারখানা সফর বা সাইট ভিজিটের ব্যবস্থা হয়েছিল।",
+            "শিল্পখাত-আয়োজিত প্রতিযোগিতা, কেস কম্পিটিশন বা হ্যাকাথনে আমি অংশ নিয়েছি।",
+            "আমার প্রোগ্রামের অংশ হিসেবে শিল্পখাত-পরিচালিত কোনো মডিউল বা শর্ট কোর্সে অংশ নিয়েছি।",
+            "আমার শিক্ষকরা শিল্পের বাস্তব পরিস্থিতির আলোকে তৈরি প্রকল্প বা কেস স্টাডি দিয়েছেন।",
+            "কোনো শিল্পখাতের পেশাদার ব্যক্তির কাছ থেকে মেন্টরশিপ বা সরাসরি তত্ত্বাবধান পেয়েছি।",
+            "বিশ্ববিদ্যালয় ও শিল্পপ্রতিষ্ঠানের যৌথ গবেষণা বা পরামর্শমূলক কার্যক্রমে অংশ নিয়েছি।",
+            "আমার বিশ্ববিদ্যালয়ের আয়োজনে ক্যারিয়ার মেলা বা নিয়োগকর্তা-আয়োজিত অনুষ্ঠানে যোগ দিয়েছি।",
+            "শিল্পখাতের প্রতিনিধিরা আমার কাজ মূল্যায়নে অংশ নিয়েছেন। যেমন, প্রজেক্ট উপস্থাপনা বা মূল্যায়ন কার্যক্রমে।",
+            "কোর্সের প্রয়োজনে শিল্পখাত-প্রদত্ত যন্ত্রপাতি, সফটওয়্যার বা ল্যাবরেটরি ব্যবহার করেছি।",
+            "শিল্পখাতের পৃষ্ঠপোষকতায় আমার পড়াশোনা বা প্রকল্পের জন্য আর্থিক সহায়তা বা বৃত্তি পেয়েছি।",
+            "বিশ্ববিদ্যালয়ের বিভিন্ন অনুষ্ঠানে কোম্পানির প্রতিনিধিদের সাথে যোগাযোগ ও নেটওয়ার্ক তৈরির সুযোগ পেয়েছি।",
+            "আমার বিশ্ববিদ্যালয় কোম্পানিগুলোর সাথে প্লেসমেন্ট বা ইন্টার্নশিপের সুযোগ তৈরি করে দিয়েছে।"
+        ]
+    };
+
+    // Q23–Q33 items (Quality of UIC Experience)
+    const qualityItems = {
+        en: [
+            "The goals of the placement/project were clearly explained to me.",
+            "I had clear learning objectives for the placement/project.",
+            "My supervisor (industry or university) explained what was expected of me.",
+            "I received supportive supervision from industry staff.",
+            "The workplace provided opportunities to perform meaningful tasks (not just observation).",
+            "Company staff gave me constructive feedback on my work.",
+            "The university provided clear guidance before and during the placement/project.",
+            "University staff remained involved and supportive while I was working with the company.",
+            "The placement/project helped me develop job-related technical skills.",
+            "The activity helped me develop professional skills (communication, teamwork, leadership).",
+            "I had opportunities to apply what I learned in class to real workplace problems."
+        ],
+        bn: [
+            "প্লেসমেন্ট বা প্রকল্পের উদ্দেশ্য ও লক্ষ্য আমাকে স্পষ্টভাবে বুঝিয়ে দেওয়া হয়েছিল।",
+            "প্লেসমেন্ট বা প্রকল্পে আমার শেখার উদ্দেশ্যগুলো সুনির্দিষ্ট ছিল।",
+            "আমার তত্ত্বাবধায়ক, তিনি শিল্পখাত বা বিশ্ববিদ্যালয়, যেই খাতের প্রতিনিধি ই হন না কেন,আমার কাছে কী প্রত্যাশা করা হচ্ছে তা পরিষ্কারভাবে জানিয়ে দিয়েছিলেন।",
+            "শিল্পপ্রতিষ্ঠানের কর্মীরা আমাকে উৎসাহ ও সহায়তা দিয়ে তত্ত্বাবধান করেছেন।",
+            "কর্মক্ষেত্রে শুধু দেখে থাকতে বলা হয়নি, আমাকে সত্যিকার অর্থবহ কাজে অংশ নিতে দেওয়া হয়েছিল।",
+            "কোম্পানির কর্মীরা আমার কাজের উপর গঠনমূলক মতামত ও পরামর্শ দিয়েছেন।",
+            "প্লেসমেন্ট বা প্রকল্প শুরুর আগে এবং চলার সময় বিশ্ববিদ্যালয় আমাকে সুস্পষ্ট দিকনির্দেশনা দিয়েছে।",
+            "কোম্পানিতে কাজের সময়ও বিশ্ববিদ্যালয়ের শিক্ষক-কর্মীরা আমার সাথে যোগাযোগ রেখে সহযোগিতা করেছেন।",
+            "এই প্লেসমেন্ট বা প্রকল্পটি আমাকে পেশাগতভাবে প্রয়োজনীয় কারিগরি দক্ষতা গড়ে তুলতে সাহায্য করেছে।",
+            "এই কার্যক্রম আমার যোগাযোগ, দলগত কাজ ও নেতৃত্বের মতো পেশাদার দক্ষতাগুলো গড়ে তুলতে সাহায্য করেছে।",
+            "ক্লাসে যা শিখেছি, বাস্তব কর্মক্ষেত্রের সমস্যায় তা প্রয়োগ করে দেখার সুযোগ আমি পেয়েছি।"
+        ]
+    };
+
+    // Q34–Q43 items (Learning Outcomes)
+    const learningOutcomes = {
+        en: [
+            "Improved my ability to apply theoretical knowledge to practical problems.",
+            "Increased my problem-solving skills in real-world contexts.",
+            "Improved my technical/practical skills related to my field of study.",
+            "Improved my communication skills (written and oral).",
+            "Increased my ability to work effectively in teams.",
+            "Improved my understanding of workplace norms and professional behavior.",
+            "Helped me build professional contacts and networks.",
+            "Increased my confidence in performing job-related tasks.",
+            "Improved my ability to manage time and project tasks effectively.",
+            "Increased my awareness of industry expectations and standards."
+        ],
+        bn: [
+            "তাত্ত্বিক জ্ঞানকে বাস্তব সমস্যায় কাজে লাগানোর সক্ষমতা আমার বেড়েছে।",
+            "বাস্তব পরিস্থিতিতে সমস্যা সমাধান করার দক্ষতা আমার উন্নত হয়েছে।",
+            "আমার পড়াশোনার বিষয়-সংশ্লিষ্ট ব্যবহারিক ও কারিগরি দক্ষতা আরও শানিত হয়েছে।",
+            "লিখিত ও মৌখিক উভয় ক্ষেত্রেই আমার যোগাযোগ দক্ষতা উন্নত হয়েছে।",
+            "দলের সাথে কার্যকরভাবে কাজ করার আমার যোগ্যতা বেড়েছে।",
+            "কর্মক্ষেত্রের রীতিনীতি এবং পেশাদার আচরণ সম্পর্কে আমার বোঝাপড়া গভীর হয়েছে।",
+            "পেশাদার পরিচিতি ও নেটওয়ার্ক তৈরিতে এই অভিজ্ঞতা আমাকে সাহায্য করেছে।",
+            "পেশাগত কাজ সম্পাদনে নিজেকে যোগ্য মনে করার আত্মবিশ্বাস আমার বেড়েছে।",
+            "সময় ও প্রকল্পের কাজ সুচারুভাবে পরিচালনা করার আমার দক্ষতা উন্নত হয়েছে।",
+            "শিল্পখাত কর্মীদের কাছ থেকে কী প্রত্যাশা করে এবং কোন মান অনুসরণ করা হয়, সে সম্পর্কে আমার সচেতনতা বেড়েছে।"
+        ]
+    };
+
+    // Q44–Q49 (Generic Skills)
+    const genericSkills = {
+        en: [
+            "My program helped me develop skills in working with others (teamwork).",
+            "My program encouraged me to take responsibility for my own learning.",
+            "My program helped me develop problem-solving skills.",
+            "My program improved my ability to communicate ideas clearly.",
+            "My program improved my ability to use information and communications technology.",
+            "My program helped me think critically and analytically."
+        ],
+        bn: [
+            "আমার প্রোগ্রাম আমাকে অন্যদের সাথে মিলে কাজ করার: অর্থাৎ দলগত কাজের দক্ষতা বিকাশে সাহায্য করেছে।",
+            "আমার প্রোগ্রাম আমাকে নিজের পড়াশোনার দায়িত্ব নিজে নিতে অনুপ্রাণিত করেছে।",
+            "আমার প্রোগ্রাম সমস্যা চিহ্নিত করে তার সমাধান খোঁজার দক্ষতা গড়ে তুলতে সাহায্য করেছে।",
+            "আমার মনের ভাবনা স্পষ্ট ও গুছিয়ে প্রকাশ করার সক্ষমতা আমার প্রোগ্রাম বাড়িয়েছে।",
+            "তথ্য ও যোগাযোগ প্রযুক্তি দক্ষতার সাথে ব্যবহার করার আমার যোগ্যতা আমার প্রোগ্রাম উন্নত করেছে।",
+            "বিষয়গুলো সমালোচনামূলক দৃষ্টিতে দেখার এবং বিশ্লেষণ করার মানসিকতা আমার প্রোগ্রাম তৈরি করতে সাহায্য করেছে।"
+        ]
+    };
+
+    // Q50–Q56 (Self-Perceived Employability)
+    const employability = {
+        en: [
+            "I believe I will be able to carry out the tasks required in jobs related to my field.",
+            "I am confident that I have the skills employers are looking for.",
+            "I feel confident in my ability to find a job related to my studies.",
+            "I believe I can adapt quickly to new workplace situations.",
+            "I am aware of the types of jobs available in my field.",
+            "I have the networks or contacts that will help me find employment.",
+            "I believe employers would consider my CV/resume competitive."
+        ],
+        bn: [
+            "আমি বিশ্বাস করি, আমার ক্ষেত্র-সংশ্লিষ্ট চাকরিতে যা করতে হয়, আমি তা সফলভাবে করতে পারব।",
+            "নিয়োগকর্তারা যে দক্ষতা ও গুণাবলী খোঁজেন, সেগুলো আমার মধ্যে আছে - এই আত্মবিশ্বাস আমার আছে।",
+            "আমার পড়াশোনার সাথে মিল রেখে একটি ভালো চাকরি খুঁজে পাব - এই বিশ্বাস আমার মধ্যে আছে।",
+            "নতুন কর্মপরিবেশে দ্রুত মানিয়ে নেওয়ার ক্ষমতা আমার আছে বলে আমি মনে করি।",
+            "আমার ক্ষেত্রে কোন কোন ধরনের চাকরির সুযোগ আছে সে সম্পর্কে আমি ভালোভাবে অবগত।",
+            "চাকরি খোঁজার কাজে সহায়ক পেশাদার নেটওয়ার্ক বা পরিচিতি আমার আছে।",
+            "আমার সিভি বা রেজুমে নিয়োগকর্তাদের কাছে প্রতিযোগিতামূলক বলে বিবেচিত হবে - এটা আমি বিশ্বাস করি।"
+        ]
+    };
+
+    // Teacher profiles (unchanged)
+    const teacherExpItems = {
+        en: [
+            "The teacher illustrated teaching content with his/her own real-life business/industry experiences.",
+            "The teacher shared interesting personal stories from the world of business or industry.",
+            "The teacher talked about his/her own company or business.",
+            "The teacher discussed a research project he/she was conducting in cooperation with a company.",
+            "The teacher took us on a field trip to a company."
+        ],
+        bn: [
+            "শিক্ষক পাঠের বিষয়বস্তু ব্যাখ্যা করতে নিজের বাস্তব ব্যবসায়িক বা শিল্প-অভিজ্ঞতার উদাহরণ দিয়েছেন।",
+            "শিক্ষক ব্যবসা বা শিল্পজগতে তাঁর নিজের জীবনের মজাদার ও শিক্ষণীয় অভিজ্ঞতার গল্প শুনিয়েছেন।",
+            "শিক্ষক তাঁর নিজের কোম্পানি বা ব্যবসা-উদ্যোগের কথা ক্লাসে আলোচনা করেছেন।",
+            "শিক্ষক কোনো কোম্পানির সাথে মিলে পরিচালিত তাঁর গবেষণা প্রকল্পের কথা ক্লাসে বলেছেন।",
+            "শিক্ষক আমাদের কোনো কোম্পানিতে সরাসরি পরিদর্শনে নিয়ে গিয়েছেন।"
+        ]
+    };
+
+    const teacherExpFreq = ["Never", "Once or Twice", "Rarely", "Frequently", "Very Frequently"];
+    const teacherExpFreqBn = ["কখনো না", "একবার বা দুইবার", "খুব কমই", "প্রায়শই", "নিয়মিতভাবে"];
+
+    const teacherOpinions = {
+        en: [
+            "I can usually tell whether a teacher has industry experience — even without being told.",
+            "We can learn more from teachers who have industry experience than from those who do not.",
+            "Teachers should equip students with strong research methodology skills and help them publish.",
+            "Teachers should connect students with potential future employers.",
+            "Teachers should give students valuable field experiences — such as company visits.",
+            "Teachers with industry experience tend to appear more self-confident in the classroom.",
+            "Teachers with industry experience and connections seem to enjoy their work more.",
+            "Sometimes teachers with industry experience focus too much on storytelling and not enough on theory."
+        ],
+        bn: [
+            "কোনো শিক্ষকের শিল্প-অভিজ্ঞতা আছে কিনা, তা না বললেও আমি সাধারণত বুঝতে পারি।",
+            "শিল্প-অভিজ্ঞতাসম্পন্ন শিক্ষকদের কাছ থেকে আমরা যারা নেই তাঁদের চেয়ে অনেক বেশি শিখতে পারি।",
+            "শিক্ষকদের উচিত শিক্ষার্থীদের গবেষণা পদ্ধতিতে দক্ষ করে তোলা এবং প্রকাশনায় সহায়তা করা।",
+            "শিক্ষকদের উচিত শিক্ষার্থীদের সম্ভাব্য ভবিষ্যৎ নিয়োগকর্তাদের সাথে পরিচয় করিয়ে দেওয়া।",
+            "শিক্ষকদের উচিত শিক্ষার্থীদের মূল্যবান মাঠপর্যায়ের অভিজ্ঞতা দেওয়া। যেমন, কোম্পানি পরিদর্শন।",
+            "শিল্প-অভিজ্ঞতাসম্পন্ন শিক্ষকরা শ্রেণীকক্ষে সাধারণত বেশি আত্মবিশ্বাসী ও স্বচ্ছন্দ মনে হন।",
+            "শিল্পখাতের অভিজ্ঞতা ও পরিচিতিসম্পন্ন শিক্ষকরা তাঁদের কাজে বেশি আনন্দ পান বলে মনে হয়।",
+            "মাঝেমধ্যে শিল্প-অভিজ্ঞতাসম্পন্ন শিক্ষকরা গল্প বলায় এতটাই মেতে ওঠেন যে তাত্ত্বিক শিক্ষায় মনোযোগ কম দেন।"
+        ]
+    };
+
+    const agreeOptions = ["Strongly Disagree", "Disagree", "Neither", "Agree", "Strongly Agree"];
+    const agreeOptionsBn = ["একেবারেই একমত নই", "একমত নই", "নিরপেক্ষ", "একমত", "সম্পূর্ণ একমত"];
+
+    const freqOptions = ["Never", "Rarely", "Sometimes", "Often", "Very Often"];
+    const freqOptionsBn = ["কখনো না", "খুব কমই", "মাঝে মাঝে", "প্রায়শই", "নিয়মিতভাবে"];
+
+    // --------------------------------------------------------------
+    // Helper: check required fields on a page (same as before)
+    // --------------------------------------------------------------
+    function isPageValid(pageNum) {
+        if (completed) return true;
+        if (pageNum === 0) {
+            const consentBox = document.getElementById('consentCheck');
+            return consentBox && consentBox.checked;
+        }
+        if (pageNum === 1) {
+            const q1 = document.getElementById('q1_uni');
+            if (!q1 || q1.value.trim() === '') return false;
+            const q2 = document.querySelector('input[name="q2_type"]:checked');
+            if (!q2) return false;
+            const q3 = document.querySelector('input[name="q3_level"]:checked');
+            if (!q3) return false;
+            const q4 = document.querySelector('input[name="q4_year"]:checked');
+            if (!q4) return false;
+            const q5 = document.querySelector('input[name="q5_field"]:checked');
+            if (!q5) return false;
+            const q6 = document.querySelector('input[name="q6_status"]:checked');
+            if (!q6) return false;
+            return true;
+        }
+        if (pageNum === 2) {
+            const selected = document.querySelector('input[name="q7"]:checked');
+            return !!selected;
+        }
+        if (pageNum === 3) {
+            for (let i = 0; i < uicActivities.en.length; i++) {
+                const radios = document.querySelectorAll(`input[name="q8_${i}"]`);
+                let checked = false;
+                for (let r of radios) if (r.checked) { checked = true; break; }
+                if (!checked) return false;
+            }
+            return true;
+        }
+        if (pageNum === 4) {
+            for (let i = 0; i < qualityItems.en.length; i++) {
+                const radios = document.querySelectorAll(`input[name="q23_${i}"]`);
+                let checked = false;
+                for (let r of radios) if (r.checked) { checked = true; break; }
+                if (!checked) return false;
+            }
+            return true;
+        }
+        if (pageNum === 5) {
+            for (let i = 0; i < learningOutcomes.en.length; i++) {
+                const radios = document.querySelectorAll(`input[name="q34_${i}"]`);
+                let checked = false;
+                for (let r of radios) if (r.checked) { checked = true; break; }
+                if (!checked) return false;
+            }
+            return true;
+        }
+        if (pageNum === 6) {
+            for (let i = 0; i < genericSkills.en.length; i++) {
+                const radios = document.querySelectorAll(`input[name="q44_${i}"]`);
+                let checked = false;
+                for (let r of radios) if (r.checked) { checked = true; break; }
+                if (!checked) return false;
+            }
+            return true;
+        }
+        if (pageNum === 7) {
+            for (let i = 0; i < employability.en.length; i++) {
+                const radios = document.querySelectorAll(`input[name="q50_${i}"]`);
+                let checked = false;
+                for (let r of radios) if (r.checked) { checked = true; break; }
+                if (!checked) return false;
+            }
+            return true;
+        }
+        if (pageNum === 8) {
+            const q57 = document.querySelector('input[name="q57"]:checked');
+            const q58 = document.querySelector('input[name="q58"]:checked');
+            const q59 = document.querySelector('input[name="q59"]:checked');
+            const q60 = document.querySelector('input[name="q60"]:checked');
+            const q61 = document.querySelector('input[name="q61"]:checked');
+            return !!(q57 && q58 && q59 && q60 && q61);
+        }
+        if (pageNum === 9) {
+            for (let i = 0; i < teacherExpItems.en.length; i++) {
+                const radios = document.querySelectorAll(`input[name="q62_${i}"]`);
+                let checked = false;
+                for (let r of radios) if (r.checked) { checked = true; break; }
+                if (!checked) return false;
+            }
+            for (let i = 0; i < teacherOpinions.en.length; i++) {
+                const radios = document.querySelectorAll(`input[name="q63_${i}"]`);
+                let checked = false;
+                for (let r of radios) if (r.checked) { checked = true; break; }
+                if (!checked) return false;
+            }
+            return true;
+        }
+        if (pageNum === 10) {
+            const q64 = document.querySelector('input[name="q64"]:checked');
+            const q65 = document.querySelector('input[name="q65"]:checked');
+            const q66 = document.querySelector('input[name="q66"]:checked');
+            return !!(q64 && q65 && q66);
+        }
+        if (pageNum === 11) {
+            const q67 = document.querySelector('input[name="q67"]:checked');
+            const q68 = document.querySelector('input[name="q68"]:checked');
+            const q69 = document.querySelector('input[name="q69"]:checked');
+            const q70 = document.querySelector('input[name="q70"]:checked');
+            const q71 = document.querySelector('input[name="q71"]:checked');
+            const q72 = document.querySelector('input[name="q72"]:checked');
+            const q73 = document.getElementById('q73_age');
+            const q74 = document.querySelector('input[name="q74"]:checked');
+            if (!q67 || !q68 || !q69 || !q70 || !q71 || !q72) return false;
+            if (!q73 || q73.value.trim() === '') return false;
+            if (!q74) return false;
+            return true;
+        }
+        return true;
+    }
+
+    // --------------------------------------------------------------
+    // RENDER FUNCTION (full)
+    // --------------------------------------------------------------
+    function renderPage() {
+        updateProgress();
+        updateBackground(currentPage);
+
+        const container = document.getElementById('surveyContainer');
+        container.style.animation = 'none';
+        container.offsetHeight;
+        container.style.animation = 'fadeSlideIn 0.35s ease-out';
+
+        const dyWrapper = document.getElementById('didYouKnowWrapper');
+        if (currentPage === 0 || currentPage === totalPages-1) {
+            dyWrapper.classList.add('hidden');
+        } else {
+            dyWrapper.classList.remove('hidden');
+            const factIndex = (currentPage - 1) % didYouKnowFacts.en.length;
+            const factText = currentLang === 'en' ? didYouKnowFacts.en[factIndex] : didYouKnowFacts.bn[factIndex];
+            document.getElementById('didYouKnowText').innerText = factText;
+        }
+
+        const contentDiv = document.getElementById('mainContent');
+
+        // ----- Page 0: Consent -----
+        if (currentPage === 0) {
+            const content = consentContent[currentLang];
+            let html = `<div class="question"><div class="question-title">${content.title}</div>`;
+            for (let i = 0; i < content.paragraphs.length; i++) {
+                const para = content.paragraphs[i];
+                html += `<div class="bilingual-block"><div class="bn-text">${para}</div>`;
+                if (currentLang === 'bn') {
+                    const engPara = consentContent.en.paragraphs[i] || '';
+                    html += `<div class="en-text">${engPara}</div>`;
+                } else if (currentLang === 'en') {
+                    const bnPara = consentContent.bn.paragraphs[i] || '';
+                    html += `<div class="en-text">${bnPara}</div>`;
+                }
+                html += `</div>`;
+            }
+            html += `<div class="checkbox-option">
+                        <input type="checkbox" id="consentCheck">
+                        <label for="consentCheck">${content.consentLabel}</label>
+                      </div>`;
+            html += `</div>`;
+            contentDiv.innerHTML = html;
+        }
+        // ----- Page 1: Background Info -----
+        else if (currentPage === 1) {
+            if (currentLang === 'en') {
+                contentDiv.innerHTML = `
+                    <div class="question"><div class="question-title">Q1. Which university do you attend or most recently attend? <span class="required-star">*</span></div><input type="text" id="q1_uni" placeholder="Full university name" value="${surveyData.q1_uni || ''}"><div class="en-text">প্র১. আপনি কোন বিশ্ববিদ্যালয়ে পড়ছেন বা সম্প্রতি পড়েছেন? (বিশ্ববিদ্যালয়ের পূর্ণ নাম লিখুন)</div></div>
+                    <div class="question"><div class="question-title">Q2. What type of university are you attending? <span class="required-star">*</span></div><div class="options"><label class="option"><input type="radio" name="q2_type" value="Public" ${surveyData.q2_type === 'Public' ? 'checked' : ''}> Public / Government university</label><label class="option"><input type="radio" name="q2_type" value="Private" ${surveyData.q2_type === 'Private' ? 'checked' : ''}> Private university</label><label class="option"><input type="radio" name="q2_type" value="International" ${surveyData.q2_type === 'International' ? 'checked' : ''}> International campus in Bangladesh</label><label class="option"><input type="radio" name="q2_type" value="Other" ${surveyData.q2_type === 'Other' ? 'checked' : ''}> Other (please specify): <input type="text" name="q2_other" style="width:auto; margin-left:0.5rem;" placeholder="Specify" value="${surveyData.q2_other || ''}"></label></div><div class="en-text">প্র২. আপনার বিশ্ববিদ্যালয়টি কোন ধরনের?</div></div>
+                    <div class="question"><div class="question-title">Q3. What is your current program level? <span class="required-star">*</span></div><div class="options"><label class="option"><input type="radio" name="q3_level" value="Undergraduate" ${surveyData.q3_level === 'Undergraduate' ? 'checked' : ''}> Undergraduate (Bachelor's degree)</label><label class="option"><input type="radio" name="q3_level" value="Masters taught" ${surveyData.q3_level === 'Masters taught' ? 'checked' : ''}> Master's degree (taught program)</label><label class="option"><input type="radio" name="q3_level" value="Masters research" ${surveyData.q3_level === 'Masters research' ? 'checked' : ''}> Master's degree (research program)</label><label class="option"><input type="radio" name="q3_level" value="Other" ${surveyData.q3_level === 'Other' ? 'checked' : ''}> Other (please specify): <input type="text" name="q3_other" style="width:auto; margin-left:0.5rem;" placeholder="Specify" value="${surveyData.q3_other || ''}"></label></div><div class="en-text">প্র৩. আপনি এখন কোন স্তরে পড়ছেন?</div></div>
+                    <div class="question"><div class="question-title">Q4. What year of study are you currently in? <span class="required-star">*</span></div><div class="options"><label class="option"><input type="radio" name="q4_year" value="Year 1" ${surveyData.q4_year === 'Year 1' ? 'checked' : ''}> Year 1 (First year)</label><label class="option"><input type="radio" name="q4_year" value="Year 2" ${surveyData.q4_year === 'Year 2' ? 'checked' : ''}> Year 2 (Second year)</label><label class="option"><input type="radio" name="q4_year" value="Year 3" ${surveyData.q4_year === 'Year 3' ? 'checked' : ''}> Year 3 (Third year)</label><label class="option"><input type="radio" name="q4_year" value="Year 4" ${surveyData.q4_year === 'Year 4' ? 'checked' : ''}> Year 4 (Fourth year)</label><label class="option"><input type="radio" name="q4_year" value="Year 5+" ${surveyData.q4_year === 'Year 5+' ? 'checked' : ''}> Year 5 or higher</label><label class="option"><input type="radio" name="q4_year" value="Recent grad" ${surveyData.q4_year === 'Recent grad' ? 'checked' : ''}> Recently graduated (not more than two years ago)</label></div><div class="en-text">প্র৪. আপনি এখন কোন বর্ষে পড়ছেন?</div></div>
+                    <div class="question"><div class="question-title">Q5. What is your field of study? <span class="required-star">*</span></div><div class="options">${["Engineering","General Management / MBA","Finance and Banking","Accounting","Marketing","Human Resource Management","Entrepreneurship","International Business","Economics","Social Sciences and the Arts","Other"].map(f => `<label class="option"><input type="radio" name="q5_field" value="${f}" ${surveyData.q5_field === f ? 'checked' : ''}> ${f}</label>`).join('')}<label class="option"><input type="radio" name="q5_field" value="Other specify" ${surveyData.q5_field === 'Other specify' ? 'checked' : ''}> Other: <input type="text" name="q5_other" style="width:auto; margin-left:0.5rem;" placeholder="Specify" value="${surveyData.q5_other || ''}"></label></div><div class="en-text">প্র৫. আপনার পড়াশোনার বিষয় কী?</div></div>
+                    <div class="question"><div class="question-title">Q6. You are/were a — <span class="required-star">*</span></div><div class="options"><label class="option"><input type="radio" name="q6_status" value="Full-time" ${surveyData.q6_status === 'Full-time' ? 'checked' : ''}> Full-time student</label><label class="option"><input type="radio" name="q6_status" value="Part-time" ${surveyData.q6_status === 'Part-time' ? 'checked' : ''}> Part-time student (studying while working)</label><label class="option"><input type="radio" name="q6_status" value="Other" ${surveyData.q6_status === 'Other' ? 'checked' : ''}> Other (please specify): <input type="text" name="q6_other" style="width:auto; margin-left:0.5rem;" placeholder="Specify" value="${surveyData.q6_other || ''}"></label></div><div class="en-text">প্র৬. আপনি —</div></div>
+                `;
+            } else {
+                contentDiv.innerHTML = `
+                    <div class="question"><div class="question-title">প্র১. আপনি কোন বিশ্ববিদ্যালয়ে পড়ছেন বা সম্প্রতি পড়েছেন? (বিশ্ববিদ্যালয়ের পূর্ণ নাম লিখুন) <span class="required-star">*</span></div><input type="text" id="q1_uni" placeholder="বিশ্ববিদ্যালয়ের পূর্ণ নাম" value="${surveyData.q1_uni || ''}"><div class="en-text">Q1. Which university do you attend or most recently attend?</div></div>
+                    <div class="question"><div class="question-title">প্র২. আপনার বিশ্ববিদ্যালয়টি কোন ধরনের? <span class="required-star">*</span></div><div class="options"><label class="option"><input type="radio" name="q2_type" value="Public" ${surveyData.q2_type === 'Public' ? 'checked' : ''}> পাবলিক বা সরকারি বিশ্ববিদ্যালয় (Public/Government university)</label><label class="option"><input type="radio" name="q2_type" value="Private" ${surveyData.q2_type === 'Private' ? 'checked' : ''}> বেসরকারি বিশ্ববিদ্যালয় (Private university)</label><label class="option"><input type="radio" name="q2_type" value="International" ${surveyData.q2_type === 'International' ? 'checked' : ''}> বাংলাদেশে আন্তর্জাতিক শাখা ক্যাম্পাস (International campus in Bangladesh)</label><label class="option"><input type="radio" name="q2_type" value="Other" ${surveyData.q2_type === 'Other' ? 'checked' : ''}> অন্যান্য (উল্লেখ করুন): <input type="text" name="q2_other" style="width:auto; margin-left:0.5rem;" placeholder="Specify" value="${surveyData.q2_other || ''}"></label></div><div class="en-text">Q2. What type of university are you attending?</div></div>
+                    <div class="question"><div class="question-title">প্র৩. আপনি এখন কোন স্তরে পড়ছেন? <span class="required-star">*</span></div><div class="options"><label class="option"><input type="radio" name="q3_level" value="Undergraduate" ${surveyData.q3_level === 'Undergraduate' ? 'checked' : ''}> স্নাতক (সম্মান) (Undergraduate / Bachelor's degree)</label><label class="option"><input type="radio" name="q3_level" value="Masters taught" ${surveyData.q3_level === 'Masters taught' ? 'checked' : ''}> স্নাতকোত্তর (কোর্সভিত্তিক) (Master's degree — taught program)</label><label class="option"><input type="radio" name="q3_level" value="Masters research" ${surveyData.q3_level === 'Masters research' ? 'checked' : ''}> স্নাতকোত্তর (গবেষণাভিত্তিক) (Master's degree — research program)</label><label class="option"><input type="radio" name="q3_level" value="Other" ${surveyData.q3_level === 'Other' ? 'checked' : ''}> অন্যান্য (উল্লেখ করুন): <input type="text" name="q3_other" style="width:auto; margin-left:0.5rem;" placeholder="Specify" value="${surveyData.q3_other || ''}"></label></div><div class="en-text">Q3. What is your current program level?</div></div>
+                    <div class="question"><div class="question-title">প্র৪. আপনি এখন কোন বর্ষে পড়ছেন? <span class="required-star">*</span></div><div class="options"><label class="option"><input type="radio" name="q4_year" value="Year 1" ${surveyData.q4_year === 'Year 1' ? 'checked' : ''}> প্রথম বর্ষ (Year 1 — First year)</label><label class="option"><input type="radio" name="q4_year" value="Year 2" ${surveyData.q4_year === 'Year 2' ? 'checked' : ''}> দ্বিতীয় বর্ষ (Year 2 — Second year)</label><label class="option"><input type="radio" name="q4_year" value="Year 3" ${surveyData.q4_year === 'Year 3' ? 'checked' : ''}> তৃতীয় বর্ষ (Year 3 — Third year)</label><label class="option"><input type="radio" name="q4_year" value="Year 4" ${surveyData.q4_year === 'Year 4' ? 'checked' : ''}> চতুর্থ বর্ষ (Year 4 — Fourth year)</label><label class="option"><input type="radio" name="q4_year" value="Year 5+" ${surveyData.q4_year === 'Year 5+' ? 'checked' : ''}> পঞ্চম বর্ষ বা তার উপরে (Year 5 or higher)</label><label class="option"><input type="radio" name="q4_year" value="Recent grad" ${surveyData.q4_year === 'Recent grad' ? 'checked' : ''}> সম্প্রতি স্নাতক হয়েছি (গত দুই বছরের মধ্যে) (Recently graduated — not more than two years ago)</label></div><div class="en-text">Q4. What year of study are you currently in?</div></div>
+                    <div class="question"><div class="question-title">প্র৫. আপনার পড়াশোনার বিষয় কী? <span class="required-star">*</span></div><div class="options">${["প্রকৌশল (Engineering)","সাধারণ ব্যবস্থাপনা / এমবিএ (General Management / MBA)","ফিন্যান্স ও ব্যাংকিং (Finance and Banking)","হিসাববিজ্ঞান (Accounting)","মার্কেটিং (Marketing)","মানবসম্পদ ব্যবস্থাপনা (Human Resource Management)","উদ্যোক্তা উন্নয়ন (Entrepreneurship)","আন্তর্জাতিক ব্যবসা (International Business)","অর্থনীতি (Economics)","সামাজিক বিজ্ঞান ও কলা (Social Sciences and the Arts)","অন্যান্য (উল্লেখ করুন):"].map(f => `<label class="option"><input type="radio" name="q5_field" value="${f}" ${surveyData.q5_field === f ? 'checked' : ''}> ${f}</label>`).join('')}<label class="option"><input type="radio" name="q5_field" value="Other specify" ${surveyData.q5_field === 'Other specify' ? 'checked' : ''}> অন্যান্য: <input type="text" name="q5_other" style="width:auto; margin-left:0.5rem;" placeholder="Specify" value="${surveyData.q5_other || ''}"></label></div><div class="en-text">Q5. What is your field of study?</div></div>
+                    <div class="question"><div class="question-title">প্র৬. আপনি — <span class="required-star">*</span></div><div class="options"><label class="option"><input type="radio" name="q6_status" value="Full-time" ${surveyData.q6_status === 'Full-time' ? 'checked' : ''}> পূর্ণকালীন শিক্ষার্থী (Full-time student)</label><label class="option"><input type="radio" name="q6_status" value="Part-time" ${surveyData.q6_status === 'Part-time' ? 'checked' : ''}> খণ্ডকালীন শিক্ষার্থী (চাকরির পাশাপাশি পড়াশোনা) (Part-time student — studying while working)</label><label class="option"><input type="radio" name="q6_status" value="Other" ${surveyData.q6_status === 'Other' ? 'checked' : ''}> অন্যান্য (উল্লেখ করুন): <input type="text" name="q6_other" style="width:auto; margin-left:0.5rem;" placeholder="Specify" value="${surveyData.q6_other || ''}"></label></div><div class="en-text">Q6. You are/were a —</div></div>
+                `;
+            }
+            const inputs = document.querySelectorAll('#mainContent input, #mainContent select');
+            inputs.forEach(inp => inp.addEventListener('change', function() { surveyData[this.id || this.name] = this.value; }));
+        }
+        // ----- Page 2: UIC Screening -----
+        else if (currentPage === 2) {
+            const defText = currentLang === 'en' ? uicDefinition.en : uicDefinition.bn;
+            const q7Text = currentLang === 'en' ? "Q7. Have you participated in any University-Industry Collaboration (UIC) activities during your university studies? <span class='required-star'>*</span>" : "প্র৭. আপনি কি বিশ্ববিদ্যালয়ে পড়ার সময় কোনো UIC কার্যক্রমে অংশ নিয়েছেন? <span class='required-star'>*</span>";
+            const yesLabel = currentLang === 'en' ? "Yes — proceed to next section" : "হ্যাঁ — অনুগ্রহ করে পরবর্তী অংশে যান";
+            const noLabel = currentLang === 'en' ? "No — skip to teacher profiles" : "না — অনুগ্রহ করে শিক্ষক প্রোফাইলে যান";
+            let html = `
+                <div class="question">
+                    <div class="question-title">${currentLang === 'en' ? "University-Industry Collaboration (UIC) Experience" : "UIC অভিজ্ঞতা"}</div>
+                    <div class="bilingual-block"><div class="bn-text">${defText}</div>
+                    ${currentLang === 'bn' ? `<div class="en-text">${uicDefinition.en}</div>` : `<div class="en-text">${uicDefinition.bn}</div>`}
+                    </div>
+                    <div class="question-title" style="margin-top:1rem;">${q7Text}</div>
+                    <div class="options">
+                        <label class="option"><input type="radio" name="q7" value="Yes" ${surveyData.q7 === 'Yes' ? 'checked' : ''}> ${yesLabel}</label>
+                        <label class="option"><input type="radio" name="q7" value="No" ${surveyData.q7 === 'No' ? 'checked' : ''}> ${noLabel}</label>
+                    </div>
+                </div>
+            `;
+            contentDiv.innerHTML = html;
+            document.querySelectorAll('input[name="q7"]').forEach(radio => radio.addEventListener('change', (e) => surveyData.q7 = e.target.value));
+        }
+        // ----- Page 3: UIC Participation -----
+        else if (currentPage === 3) {
+            const title = currentLang === 'en' ? "UIC Participation and Engagement" : "UIC-তে অংশগ্রহণ ও সম্পৃক্ততা";
+            const freqHeader = currentLang === 'en' ? "Frequency:" : "উত্তর বিকল্প:";
+            const freqLabels = currentLang === 'en' ? freqOptions : freqOptionsBn;
+            let html = `<div class="question"><div class="question-title">${title}</div>`;
+            html += `<div style="margin-bottom:1rem; font-size:0.85rem;">${freqHeader} ${freqLabels.join(' · ')}</div>`;
+            for (let i = 0; i < uicActivities.en.length; i++) {
+                const itemEn = uicActivities.en[i];
+                const itemBn = uicActivities.bn[i];
+                const currentValue = surveyData[`q8_${i}`] || '';
+                html += `<div class="matrix-row">
+                            <div class="matrix-label">${currentLang === 'en' ? itemEn : itemBn}</div>
+                            <div class="matrix-options">`;
+                for (let f = 0; f < freqOptions.length; f++) {
+                    const val = freqOptions[f];
+                    const label = freqLabels[f];
+                    html += `<label><input type="radio" name="q8_${i}" value="${val}" ${currentValue === val ? 'checked' : ''}> ${label}</label>`;
+                }
+                html += `</div>`;
+                if (currentLang === 'bn') html += `<div class="en-text">${itemEn}</div>`;
+                else html += `<div class="en-text">${itemBn}</div>`;
+                html += `</div>`;
+            }
+            html += `</div>`;
+            contentDiv.innerHTML = html;
+            for (let i = 0; i < uicActivities.en.length; i++) {
+                const radios = document.querySelectorAll(`input[name="q8_${i}"]`);
+                radios.forEach(radio => radio.addEventListener('change', (e) => surveyData[`q8_${i}`] = e.target.value));
+            }
+        }
+        // ----- Page 4: Quality of UIC Experience -----
+        else if (currentPage === 4) {
+            const title = currentLang === 'en' ? "Quality of UIC Experience" : "UIC অভিজ্ঞতার মান";
+            const subHeader = currentLang === 'en' ? "Think about your most significant UIC experience. Rate your agreement with each statement." : "আপনার সবচেয়ে উল্লেখযোগ্য UIC অভিজ্ঞতার কথা মনে করুন — আপনার প্রধান ইন্টার্নশিপ, শিল্প-প্রকল্প বা প্লেসমেন্ট। সেই অভিজ্ঞতার আলোকে নিচের বিবৃতিগুলোর সাথে কতটা একমত তা জানান।";
+            const agreeLabels = currentLang === 'en' ? agreeOptions : agreeOptionsBn;
+            let html = `<div class="question"><div class="question-title">${title}</div><div class="bilingual-block"><div class="bn-text">${subHeader}</div>`;
+            if (currentLang === 'bn') html += `<div class="en-text">Think about your most significant UIC experience. Rate your agreement with each statement.</div>`;
+            else html += `<div class="en-text">আপনার সবচেয়ে উল্লেখযোগ্য UIC অভিজ্ঞতার কথা মনে করুন — আপনার প্রধান ইন্টার্নশিপ, শিল্প-প্রকল্প বা প্লেসমেন্ট। সেই অভিজ্ঞতার আলোকে নিচের বিবৃতিগুলোর সাথে কতটা একমত তা জানান।</div>`;
+            html += `</div>`;
+            for (let i = 0; i < qualityItems.en.length; i++) {
+                const itemEn = qualityItems.en[i];
+                const itemBn = qualityItems.bn[i];
+                const currentValue = surveyData[`q23_${i}`] || '';
+                html += `<div class="matrix-row"><div class="matrix-label">${currentLang === 'en' ? itemEn : itemBn}</div><div class="matrix-options">`;
+                for (let a = 0; a < agreeOptions.length; a++) {
+                    const val = agreeOptions[a];
+                    const label = agreeLabels[a];
+                    html += `<label><input type="radio" name="q23_${i}" value="${val}" ${currentValue === val ? 'checked' : ''}> ${label}</label>`;
+                }
+                html += `</div>`;
+                if (currentLang === 'bn') html += `<div class="en-text">${itemEn}</div>`;
+                else html += `<div class="en-text">${itemBn}</div>`;
+                html += `</div>`;
+            }
+            html += `</div>`;
+            contentDiv.innerHTML = html;
+            for (let i = 0; i < qualityItems.en.length; i++) {
+                const radios = document.querySelectorAll(`input[name="q23_${i}"]`);
+                radios.forEach(radio => radio.addEventListener('change', (e) => surveyData[`q23_${i}`] = e.target.value));
+            }
+        }
+        // ----- Page 5: Learning Outcomes -----
+        else if (currentPage === 5) {
+            const title = currentLang === 'en' ? "Learning Outcomes from UIC Activities" : "UIC কার্যক্রম থেকে অর্জিত শিক্ষার ফলাফল";
+            const subHeader = currentLang === 'en' ? "Rate how much you agree that your UIC activities improved the following aspects." : "আপনার UIC কার্যক্রম নিচের বিষয়গুলো উন্নত করেছে কিনা — সে বিষয়ে আপনার মতামত জানান।";
+            const agreeLabels = currentLang === 'en' ? agreeOptions : agreeOptionsBn;
+            let html = `<div class="question"><div class="question-title">${title}</div><div class="bilingual-block"><div class="bn-text">${subHeader}</div>`;
+            if (currentLang === 'bn') html += `<div class="en-text">Rate how much you agree that your UIC activities improved the following aspects.</div>`;
+            else html += `<div class="en-text">আপনার UIC কার্যক্রম নিচের বিষয়গুলো উন্নত করেছে কিনা — সে বিষয়ে আপনার মতামত জানান।</div>`;
+            html += `</div>`;
+            for (let i = 0; i < learningOutcomes.en.length; i++) {
+                const itemEn = learningOutcomes.en[i];
+                const itemBn = learningOutcomes.bn[i];
+                const currentValue = surveyData[`q34_${i}`] || '';
+                html += `<div class="matrix-row"><div class="matrix-label">${currentLang === 'en' ? itemEn : itemBn}</div><div class="matrix-options">`;
+                for (let a = 0; a < agreeOptions.length; a++) {
+                    const val = agreeOptions[a];
+                    const label = agreeLabels[a];
+                    html += `<label><input type="radio" name="q34_${i}" value="${val}" ${currentValue === val ? 'checked' : ''}> ${label}</label>`;
+                }
+                html += `</div>`;
+                if (currentLang === 'bn') html += `<div class="en-text">${itemEn}</div>`;
+                else html += `<div class="en-text">${itemBn}</div>`;
+                html += `</div>`;
+            }
+            html += `</div>`;
+            contentDiv.innerHTML = html;
+            for (let i = 0; i < learningOutcomes.en.length; i++) {
+                const radios = document.querySelectorAll(`input[name="q34_${i}"]`);
+                radios.forEach(radio => radio.addEventListener('change', (e) => surveyData[`q34_${i}`] = e.target.value));
+            }
+        }
+        // ----- Page 6: Generic Skills -----
+        else if (currentPage === 6) {
+            const title = currentLang === 'en' ? "Generic Skills Development" : "সার্বিক দক্ষতা বিকাশ";
+            const subHeader = currentLang === 'en' ? "Thinking about your entire degree program (including courses, projects, and any UIC experiences), please indicate your agreement." : "আপনার সম্পূর্ণ ডিগ্রি প্রোগ্রামের কথা ভাবুন — কোর্স, প্রকল্প এবং যেকোনো UIC অভিজ্ঞতাসহ। নিচের বিবৃতিগুলোর সাথে কতটা একমত তা জানান।";
+            const agreeLabels = currentLang === 'en' ? agreeOptions : agreeOptionsBn;
+            let html = `<div class="question"><div class="question-title">${title}</div><div class="bilingual-block"><div class="bn-text">${subHeader}</div>`;
+            if (currentLang === 'bn') html += `<div class="en-text">Thinking about your entire degree program (including courses, projects, and any UIC experiences), please indicate your agreement.</div>`;
+            else html += `<div class="en-text">আপনার সম্পূর্ণ ডিগ্রি প্রোগ্রামের কথা ভাবুন — কোর্স, প্রকল্প এবং যেকোনো UIC অভিজ্ঞতাসহ। নিচের বিবৃতিগুলোর সাথে কতটা একমত তা জানান।</div>`;
+            html += `</div>`;
+            for (let i = 0; i < genericSkills.en.length; i++) {
+                const itemEn = genericSkills.en[i];
+                const itemBn = genericSkills.bn[i];
+                const currentValue = surveyData[`q44_${i}`] || '';
+                html += `<div class="matrix-row"><div class="matrix-label">${currentLang === 'en' ? itemEn : itemBn}</div><div class="matrix-options">`;
+                for (let a = 0; a < agreeOptions.length; a++) {
+                    const val = agreeOptions[a];
+                    const label = agreeLabels[a];
+                    html += `<label><input type="radio" name="q44_${i}" value="${val}" ${currentValue === val ? 'checked' : ''}> ${label}</label>`;
+                }
+                html += `</div>`;
+                if (currentLang === 'bn') html += `<div class="en-text">${itemEn}</div>`;
+                else html += `<div class="en-text">${itemBn}</div>`;
+                html += `</div>`;
+            }
+            html += `</div>`;
+            contentDiv.innerHTML = html;
+            for (let i = 0; i < genericSkills.en.length; i++) {
+                const radios = document.querySelectorAll(`input[name="q44_${i}"]`);
+                radios.forEach(radio => radio.addEventListener('change', (e) => surveyData[`q44_${i}`] = e.target.value));
+            }
+        }
+        // ----- Page 7: Self-Perceived Employability -----
+        else if (currentPage === 7) {
+            const title = currentLang === 'en' ? "Self-Perceived Employability" : "নিজের চোখে নিজের কর্মযোগ্যতা";
+            const subHeader = currentLang === 'en' ? "Please indicate how much you agree with these statements about your ability to find and succeed in employment." : "আপনার ক্ষেত্রে চাকরি খুঁজে পাওয়া এবং সফলভাবে কাজ করার সক্ষমতা নিয়ে নিচের বিবৃতিগুলোর সাথে কতটা একমত তা জানান।";
+            const agreeLabels = currentLang === 'en' ? agreeOptions : agreeOptionsBn;
+            let html = `<div class="question"><div class="question-title">${title}</div><div class="bilingual-block"><div class="bn-text">${subHeader}</div>`;
+            if (currentLang === 'bn') html += `<div class="en-text">Please indicate how much you agree with these statements about your ability to find and succeed in employment.</div>`;
+            else html += `<div class="en-text">আপনার ক্ষেত্রে চাকরি খুঁজে পাওয়া এবং সফলভাবে কাজ করার সক্ষমতা নিয়ে নিচের বিবৃতিগুলোর সাথে কতটা একমত তা জানান।</div>`;
+            html += `</div>`;
+            for (let i = 0; i < employability.en.length; i++) {
+                const itemEn = employability.en[i];
+                const itemBn = employability.bn[i];
+                const currentValue = surveyData[`q50_${i}`] || '';
+                html += `<div class="matrix-row"><div class="matrix-label">${currentLang === 'en' ? itemEn : itemBn}</div><div class="matrix-options">`;
+                for (let a = 0; a < agreeOptions.length; a++) {
+                    const val = agreeOptions[a];
+                    const label = agreeLabels[a];
+                    html += `<label><input type="radio" name="q50_${i}" value="${val}" ${currentValue === val ? 'checked' : ''}> ${label}</label>`;
+                }
+                html += `</div>`;
+                if (currentLang === 'bn') html += `<div class="en-text">${itemEn}</div>`;
+                else html += `<div class="en-text">${itemBn}</div>`;
+                html += `</div>`;
+            }
+            html += `</div>`;
+            contentDiv.innerHTML = html;
+            for (let i = 0; i < employability.en.length; i++) {
+                const radios = document.querySelectorAll(`input[name="q50_${i}"]`);
+                radios.forEach(radio => radio.addEventListener('change', (e) => surveyData[`q50_${i}`] = e.target.value));
+            }
+        }
+        // ----- Page 8: Teacher Profile Comparison -----
+        else if (currentPage === 8) {
+            const profileTextEn = `
+                <div><strong>Teacher A: "The Accomplished Researcher"</strong><br>Dr. Rahman is a seasoned academic with over 15 years of experience at the university. Holding a PhD in Business Administration, her primary focus is on research and theoretical knowledge.<br><br>
+                <strong>Teacher B: "The Industry Connector"</strong><br>Ms. Ahmed brings over a decade of direct industry experience in business management into the classroom. Her focus is on practical application and real-world relevance.</div>
+            `;
+            const profileTextBn = `
+                <div><strong>শিক্ষক ক: "সুদক্ষ গবেষক"</strong><br>ড. রহমান ১৫ বছরেরও বেশি সময় ধরে বিশ্ববিদ্যালয়ে শিক্ষকতা করছেন। ব্যবসায় প্রশাসনে পিএইচডি অর্জনকারী এই শিক্ষকের মূল আগ্রহ গবেষণা ও তাত্ত্বিক জ্ঞানে।<br><br>
+                <strong>শিক্ষক খ: "শিল্প-সংযোগকারী"</strong><br>মিসেস আহমেদ এক দশকেরও বেশি সময়ের সরাসরি শিল্প-অভিজ্ঞতা শ্রেণীকক্ষে নিয়ে আসেন। তাঁর মনোযোগ ব্যবহারিক প্রয়োগ ও বাস্তব প্রাসঙ্গিকতায়।</div>
+            `;
+            const q57text = currentLang === 'en' ? "If I were the dean of a business school, I would rather hire:" : "প্র৫৭. আমি যদি কোনো বিজনেস স্কুলের ডিন হতাম, তাহলে নিয়োগ দেওয়ার ক্ষেত্রে আমি বেশি পছন্দ করতাম:";
+            const q58text = currentLang === 'en' ? "If I were a parent, I would advise my child to enroll in the class of:" : "প্র৫৮. আমি যদি একজন অভিভাবক হতাম, আমার সন্তানকে যার ক্লাসে ভর্তি হতে পরামর্শ দিতাম:";
+            const q59text = currentLang === 'en' ? "If I were the owner of a company, I would send my managers for further learning to the class of:" : "প্র৫৯. আমি যদি কোনো কোম্পানির মালিক হতাম, আমার ম্যানেজারদের আরও শেখার জন্য পাঠাতাম:";
+            const q60text = currentLang === 'en' ? "If I think of what is most useful for my future career, I would choose:" : "প্র৬০. নিজের ভবিষ্যৎ ক্যারিয়ারের কথা ভেবে, যাকে আমার সবচেয়ে বেশি কাজে লাগবে মনে করি:";
+            const q61text = currentLang === 'en' ? "If I were a teacher, I would like to be similar to:" : "প্র৬১. আমি যদি নিজে একজন শিক্ষক হতাম, আমি হতে চাইতাম:";
+            const options = currentLang === 'en' 
+                ? ['Teacher A (The Accomplished Researcher)', 'Teacher B (The Industry Connector)', 'I cannot / do not wish to answer']
+                : ['শিক্ষক ক — সুদক্ষ গবেষক', 'শিক্ষক খ — শিল্প-সংযোগকারী', 'আমি এই প্রশ্নের উত্তর দিতে পারছি না বা দিতে চাই না'];
+            function makeRadioGroup(name, currentVal) {
+                return `<div class="options">${options.map(opt => `<label class="option"><input type="radio" name="${name}" value="${opt}" ${surveyData[name] === opt ? 'checked' : ''}> ${opt}</label>`).join('')}</div>`;
+            }
+            let html = `<div class="question"><div class="question-title">${currentLang === 'en' ? 'Teacher Profile Comparison' : 'দুই শিক্ষকের প্রোফাইল তুলনা'}</div><div class="bilingual-block">${currentLang === 'en' ? profileTextEn : profileTextBn}</div>`;
+            html += `<div class="question">${q57text} ${makeRadioGroup('q57', surveyData.q57)}</div>`;
+            html += `<div class="question">${q58text} ${makeRadioGroup('q58', surveyData.q58)}</div>`;
+            html += `<div class="question">${q59text} ${makeRadioGroup('q59', surveyData.q59)}</div>`;
+            html += `<div class="question">${q60text} ${makeRadioGroup('q60', surveyData.q60)}</div>`;
+            html += `<div class="question">${q61text} ${makeRadioGroup('q61', surveyData.q61)}</div>`;
+            html += `</div>`;
+            contentDiv.innerHTML = html;
+            for (let name of ['q57','q58','q59','q60','q61']) {
+                const radios = document.querySelectorAll(`input[name="${name}"]`);
+                radios.forEach(radio => radio.addEventListener('change', (e) => surveyData[name] = e.target.value));
+            }
+        }
+        // ----- Page 9: Teacher Industry Experience & Teaching Quality -----
+        else if (currentPage === 9) {
+            const title = currentLang === 'en' ? "Teacher Industry Experience and Teaching Quality" : "শিক্ষকের শিল্প-অভিজ্ঞতা ও শিক্ষণের মান";
+            const freqLabels = currentLang === 'en' ? teacherExpFreq : teacherExpFreqBn;
+            let html = `<div class="question"><div class="question-title">${title}</div>`;
+            for (let i = 0; i < teacherExpItems.en.length; i++) {
+                const itemEn = teacherExpItems.en[i];
+                const itemBn = teacherExpItems.bn[i];
+                const currentValue = surveyData[`q62_${i}`] || '';
+                html += `<div class="matrix-row"><div class="matrix-label">${currentLang === 'en' ? itemEn : itemBn}</div><div class="matrix-options">`;
+                for (let f = 0; f < teacherExpFreq.length; f++) {
+                    const val = teacherExpFreq[f];
+                    const label = freqLabels[f];
+                    html += `<label><input type="radio" name="q62_${i}" value="${val}" ${currentValue === val ? 'checked' : ''}> ${label}</label>`;
+                }
+                html += `</div>`;
+                if (currentLang === 'bn') html += `<div class="en-text">${itemEn}</div>`;
+                else html += `<div class="en-text">${itemBn}</div>`;
+                html += `</div>`;
+            }
+            const agreeLabels = currentLang === 'en' ? agreeOptions : agreeOptionsBn;
+            for (let i = 0; i < teacherOpinions.en.length; i++) {
+                const itemEn = teacherOpinions.en[i];
+                const itemBn = teacherOpinions.bn[i];
+                const currentValue = surveyData[`q63_${i}`] || '';
+                html += `<div class="matrix-row"><div class="matrix-label">${currentLang === 'en' ? itemEn : itemBn}</div><div class="matrix-options">`;
+                for (let a = 0; a < agreeOptions.length; a++) {
+                    const val = agreeOptions[a];
+                    const label = agreeLabels[a];
+                    html += `<label><input type="radio" name="q63_${i}" value="${val}" ${currentValue === val ? 'checked' : ''}> ${label}</label>`;
+                }
+                html += `</div>`;
+                if (currentLang === 'bn') html += `<div class="en-text">${itemEn}</div>`;
+                else html += `<div class="en-text">${itemBn}</div>`;
+                html += `</div>`;
+            }
+            html += `</div>`;
+            contentDiv.innerHTML = html;
+            for (let i = 0; i < teacherExpItems.en.length; i++) {
+                const radios = document.querySelectorAll(`input[name="q62_${i}"]`);
+                radios.forEach(radio => radio.addEventListener('change', (e) => surveyData[`q62_${i}`] = e.target.value));
+            }
+            for (let i = 0; i < teacherOpinions.en.length; i++) {
+                const radios = document.querySelectorAll(`input[name="q63_${i}"]`);
+                radios.forEach(radio => radio.addEventListener('change', (e) => surveyData[`q63_${i}`] = e.target.value));
+            }
+        }
+        // ----- Page 10: Satisfaction -----
+        else if (currentPage === 10) {
+            const title = currentLang === 'en' ? "Satisfaction with Education Quality" : "শিক্ষার মানে সন্তুষ্টি";
+            const sub = currentLang === 'en' ? "Rate your satisfaction on a scale from 0 (not at all satisfied) to 5 (completely satisfied)." : "নিচের বিষয়গুলোতে আপনি কতটা সন্তুষ্ট তা জানান — ০ (একদমই সন্তুষ্ট নই) থেকে ৫ (সম্পূর্ণ সন্তুষ্ট) স্কেলে।";
+            const q64 = currentLang === 'en' ? "My satisfaction with the overall quality of higher education in Bangladesh." : "প্র৬৪. বাংলাদেশে উচ্চশিক্ষার সামগ্রিক মান নিয়ে আমার সন্তুষ্টি-";
+            const q65 = currentLang === 'en' ? "My satisfaction with the quality of teaching at my university." : "প্র৬৫. আমার বিশ্ববিদ্যালয়ে শিক্ষার মান নিয়ে আমার সন্তুষ্টি-";
+            const q66 = currentLang === 'en' ? "My satisfaction with the teachers who have taught me." : "প্র৬৬. যে শিক্ষকরা আমাকে পড়িয়েছেন তাঁদের নিয়ে আমার সন্তুষ্টি-";
+            function makeScale(name, currentVal) {
+                let opts = '';
+                for (let i = 0; i <= 5; i++) {
+                    opts += `<label class="option"><input type="radio" name="${name}" value="${i}" ${surveyData[name] == i ? 'checked' : ''}> ${i}</label>`;
+                }
+                return `<div class="options">${opts}</div>`;
+            }
+            let html = `<div class="question"><div class="question-title">${title}</div><div class="bilingual-block"><div class="bn-text">${sub}</div>`;
+            if (currentLang === 'bn') html += `<div class="en-text">Rate your satisfaction on a scale from 0 (not at all satisfied) to 5 (completely satisfied).</div>`;
+            else html += `<div class="en-text">নিচের বিষয়গুলোতে আপনি কতটা সন্তুষ্ট তা জানান — ০ (একদমই সন্তুষ্ট নই) থেকে ৫ (সম্পূর্ণ সন্তুষ্ট) স্কেলে।</div>`;
+            html += `</div>`;
+            html += `<div class="question">${q64} ${makeScale('q64', surveyData.q64)}</div>`;
+            html += `<div class="question">${q65} ${makeScale('q65', surveyData.q65)}</div>`;
+            html += `<div class="question">${q66} ${makeScale('q66', surveyData.q66)}</div>`;
+            contentDiv.innerHTML = html;
+            for (let name of ['q64','q65','q66']) {
+                const radios = document.querySelectorAll(`input[name="${name}"]`);
+                radios.forEach(radio => radio.addEventListener('change', (e) => surveyData[name] = e.target.value));
+            }
+        }
+        // ----- Page 11: Additional Information -----
+        else if (currentPage === 11) {
+            const title = currentLang === 'en' ? "Additional Information" : "অতিরিক্ত তথ্য";
+            const q67Text = currentLang === 'en' ? "What kind of job would you prefer after graduation?" : "প্র৬৭. স্নাতকের পর আপনি কোন ধরনের পেশায় যেতে পছন্দ করবেন?";
+            const q67Opts = currentLang === 'en' 
+                ? ["Public sector (government or public administration)","Multinational company","Domestic private company","Private entrepreneur / self-employed","Non-profit or development organization","Other (please specify):"]
+                : ["সরকারি খাত (যেমন সরকারি চাকরি, প্রশাসন)","বহুজাতিক কোম্পানি","দেশীয় বেসরকারি কোম্পানি","নিজস্ব উদ্যোগ / স্বনিয়োজিত উদ্যোক্তা","বেসরকারি উন্নয়ন সংস্থা বা অলাভজনক প্রতিষ্ঠান","অন্যান্য (উল্লেখ করুন):"];
+            const q68Text = currentLang === 'en' ? "Have you had any paid work experience (outside university) during your studies?" : "প্র৬৮. পড়াশোনার পাশাপাশি বিশ্ববিদ্যালয়ের বাইরে কোনো অর্থপ্রাপ্ত কাজের অভিজ্ঞতা আপনার আছে কি?";
+            const q68Opts = currentLang === 'en' ? ["Yes, regular / full-time employment","Yes, occasional or part-time work","No"] : ["হ্যাঁ — নিয়মিত বা পূর্ণকালীন কাজ","হ্যাঁ — মাঝেমধ্যে বা খণ্ডকালীন কাজ","না"];
+            const q69Text = currentLang === 'en' ? "Have you completed an internship lasting longer than 4 weeks?" : "প্র৬৯. আপনি কি ৪ সপ্তাহের বেশি সময়ের কোনো ইন্টার্নশিপ সম্পন্ন করেছেন?";
+            const q69Opts = currentLang === 'en' ? ["Yes","No"] : ["হ্যাঁ","না"];
+            const q70Text = currentLang === 'en' ? "What is the highest level of education completed by your parents?" : "প্র৭০. আপনার বাবা-মায়ের মধ্যে যিনি সর্বোচ্চ শিক্ষিত, তাঁর সর্বোচ্চ শিক্ষাগত যোগ্যতা কী?";
+            const q70Opts = currentLang === 'en' 
+                ? ["No formal education","Primary school","Secondary school (SSC / O-Level)","Higher secondary (HSC / A-Level)","Bachelor's degree","Master's degree or higher"]
+                : ["কোনো আনুষ্ঠানিক শিক্ষা নেই","প্রাথমিক বিদ্যালয়","মাধ্যমিক (SSC / O-Level)","উচ্চ মাধ্যমিক (HSC / A-Level)","স্নাতক ডিগ্রি","স্নাতকোত্তর বা তার উপরে"];
+            const q71Text = currentLang === 'en' ? "Where do/did you reside while studying?" : "প্র৭১. পড়াশোনার সময় আপনি কোথায় থাকেন বা থাকতেন?";
+            const q71Opts = currentLang === 'en' 
+                ? ["On-campus accommodation (halls or dormitory)","Off-campus (urban/city area)","Off-campus (rural area)","Living with family"]
+                : ["ক্যাম্পাসের আবাসিক হলে বা ডরমিটরিতে","ক্যাম্পাসের বাইরে — শহর বা নগর এলাকায়","ক্যাম্পাসের বাইরে — গ্রামীণ এলাকায়","পরিবারের সাথে বাড়িতে"];
+            const q72Text = currentLang === 'en' ? "What is your hometown background?" : "প্র৭২. আপনার নিজের এলাকার পরিবেশ কেমন?";
+            const q72Opts = currentLang === 'en' ? ["Urban (major city)","Semi-urban (small town)","Rural (village)"] : ["শহুরে — বড় শহর বা মেট্রোপলিটন","আধা-শহুরে — ছোট শহর বা মফস্বল","গ্রামীণ — গ্রাম"];
+            const q73Text = currentLang === 'en' ? "What is your age? (in years)" : "প্র৭৩. আপনার বয়স কত? (বছরে)";
+            const q74Text = currentLang === 'en' ? "What is your gender?" : "প্র৭৪. আপনার লিঙ্গ পরিচয় কী?";
+            const q74Opts = currentLang === 'en' ? ["Male","Female","Prefer not to say","Other (please specify):"] : ["পুরুষ","মহিলা","বলতে চাই না","অন্যান্য (উল্লেখ করুন):"];
+            const q75Text = currentLang === 'en' ? "Open-ended Comments: Please share any additional thoughts about your experiences with University-Industry Collaboration, teacher quality, or any suggestions for improvement." : "প্র৭৫. মুক্ত মন্তব্য: UIC অভিজ্ঞতা, শিক্ষার মান বা উন্নতির জন্য কোনো পরামর্শ থাকলে এখানে লিখুন — যা মনে আসে, খোলামেলাভাবে।";
+            const q76Text = currentLang === 'en' ? "If you meet our criteria and qualify for an in-depth interview (about one hour) on students' perceptions of UIC, would you be willing to participate?" : "প্র৭৬. আপনি যদি মানদণ্ড পূরণ করেন, তাহলে UIC-এ শিক্ষার্থীদের উপলব্ধি নিয়ে প্রায় এক ঘণ্টার একটি গভীর সাক্ষাৎকারে অংশ নিতে কি আপনি রাজি?";
+            const q76Opts = currentLang === 'en' ? ["Yes","No"] : ["হ্যাঁ, আমি আগ্রহী","না"];
+            const contactName = currentLang === 'en' ? "Name:" : "নাম:";
+            const contactPhone = currentLang === 'en' ? "Phone / WhatsApp:" : "ফোন / হোয়াটসঅ্যাপ:";
+            const contactSocial = currentLang === 'en' ? "Instagram / Facebook:" : "ইনস্টাগ্রাম / ফেসবুক:";
+            const contactRecharge = currentLang === 'en' ? "Mobile recharge coupon no:" : "মোবাইল রিচার্জ কুপন নং:";
+            const thankYou = currentLang === 'en' ? "Thank you for your participation!" : "আন্তরিক ধন্যবাদ!";
+            
+            function makeRadioGroup(name, options, currentVal) {
+                return `<div class="options">${options.map(opt => `<label class="option"><input type="radio" name="${name}" value="${opt}" ${surveyData[name] === opt ? 'checked' : ''}> ${opt}</label>`).join('')}</div>`;
+            }
+            let html = `<div class="question"><div class="question-title">${title}</div>`;
+            html += `<div class="question">${q67Text} <span class="required-star">*</span> ${makeRadioGroup('q67', q67Opts, surveyData.q67)}</div>`;
+            html += `<div class="question">${q68Text} <span class="required-star">*</span> ${makeRadioGroup('q68', q68Opts, surveyData.q68)}</div>`;
+            html += `<div class="question">${q69Text} <span class="required-star">*</span> ${makeRadioGroup('q69', q69Opts, surveyData.q69)}</div>`;
+            html += `<div class="question">${q70Text} <span class="required-star">*</span> ${makeRadioGroup('q70', q70Opts, surveyData.q70)}</div>`;
+            html += `<div class="question">${q71Text} <span class="required-star">*</span> ${makeRadioGroup('q71', q71Opts, surveyData.q71)}</div>`;
+            html += `<div class="question">${q72Text} <span class="required-star">*</span> ${makeRadioGroup('q72', q72Opts, surveyData.q72)}</div>`;
+            html += `<div class="question">${q73Text} <span class="required-star">*</span> <input type="text" id="q73_age" value="${surveyData.q73_age || ''}"></div>`;
+            html += `<div class="question">${q74Text} <span class="required-star">*</span> ${makeRadioGroup('q74', q74Opts, surveyData.q74)}</div>`;
+            html += `<div class="question">${q75Text}<br><textarea rows="3" id="q75_comment">${surveyData.q75_comment || ''}</textarea></div>`;
+            html += `<div class="question">${q76Text}<br>${makeRadioGroup('q76', q76Opts, surveyData.q76)}</div>`;
+            html += `<div class="question"><hr><h4>${currentLang === 'en' ? 'If you selected Yes, please provide contact details (optional):' : 'যদি হ্যাঁ হয়, অনুগ্রহ করে আপনার যোগাযোগের তথ্য দিন (ঐচ্ছিক):'}</h4>`;
+            html += `<div>${contactName} <input type="text" id="contact_name" value="${surveyData.contact_name || ''}"></div>`;
+            html += `<div>${contactPhone} <input type="text" id="contact_phone" value="${surveyData.contact_phone || ''}"></div>`;
+            html += `<div>${contactSocial} <input type="text" id="contact_social" value="${surveyData.contact_social || ''}"></div>`;
+            html += `<div>${contactRecharge} <input type="text" id="contact_recharge" value="${surveyData.contact_recharge || ''}"></div>`;
+            html += `</div><div class="didyouknow" style="margin-top:1rem;">${thankYou}</div>`;
+            contentDiv.innerHTML = html;
+            const optionalFields = ['q75_comment','contact_name','contact_phone','contact_social','contact_recharge','q73_age'];
+            optionalFields.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.addEventListener('change', (e) => surveyData[id] = e.target.value);
+            });
+            for (let name of ['q67','q68','q69','q70','q71','q72','q74','q76']) {
+                const radios = document.querySelectorAll(`input[name="${name}"]`);
+                radios.forEach(radio => radio.addEventListener('change', (e) => surveyData[name] = e.target.value));
+            }
+        }
+        // ----- Page 12: Thank You / Submit -----
+        else if (currentPage === 12) {
+            const thankTitle = currentLang === 'en' ? "Thank You!" : "আন্তরিক ধন্যবাদ!";
+            const rechargeMsg = currentLang === 'en' 
+                ? "You will receive a BDT 20 mobile recharge as a token of appreciation. It will be sent to the mobile number you provided (or to the contact number you entered). Thank you for your valuable contribution to this research!"
+                : "আপনার মূল্যবান অংশগ্রহণের জন্য আপনাকে BDT ২০ মোবাইল রিচার্জ প্রদান করা হবে। এটি আপনার প্রদত্ত মোবাইল নম্বরে (বা যোগাযোগের নম্বরে) পাঠানো হবে। গবেষণায় অবদানের জন্য আন্তরিক ধন্যবাদ।";
+            const finalNote = currentLang === 'en'
+                ? "Your responses have been recorded. You may now close this window."
+                : "আপনার উত্তর সংরক্ষণ করা হয়েছে। আপনি এখন এই উইন্ডোটি বন্ধ করতে পারেন।";
+            const submitButton = currentLang === 'en' ? "Submit & Finish" : "জমা দিন ও সমাপ্ত করুন";
+            let html = `
+                <div class="question">
+                    <div class="question-title">${thankTitle}</div>
+                    <div class="bilingual-block">
+                        <div class="bn-text">${rechargeMsg}</div>
+                        <div class="en-text">${currentLang === 'bn' ? "You will receive a BDT 20 mobile recharge as a token of appreciation. It will be sent to the mobile number you provided (or to the contact number you entered). Thank you for your valuable contribution to this research!" : "আপনার মূল্যবান অংশগ্রহণের জন্য আপনাকে BDT ২০ মোবাইল রিচার্জ প্রদান করা হবে। এটি আপনার প্রদত্ত মোবাইল নম্বরে (বা যোগাযোগের নম্বরে) পাঠানো হবে। গবেষণায় অবদানের জন্য আন্তরিক ধন্যবাদ।"}</div>
+                    </div>
+                    <p style="margin-top:1rem;">${finalNote}</p>
+                    <div style="text-align:center; margin-top:2rem;">
+                        <button id="finalSubmitBtn" class="next-btn" style="background:#E4A835;">${submitButton}</button>
+                    </div>
+                </div>
+            `;
+            contentDiv.innerHTML = html;
+            // ----- This is the part that sends data to Google Sheets -----
+            function sendToGoogleSheets(data) {
+                const url = 'https://script.google.com/macros/s/AKfycbym_HtwuAshHeBEP2UR5oYbWu009IUM_eD5-B7VBeYRzYgjydKTJycqYG5g7j3ctuRCtw/exec';
+                fetch(url, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                }).catch(err => console.error('Submit error:', err));
+            }
+            document.getElementById('finalSubmitBtn').addEventListener('click', () => {
+                if (completed) return;
+                completed = true;
+                sendToGoogleSheets(surveyData);
+                alert(currentLang === 'en' ? 'Thank you! Your responses have been submitted. The BDT 20 recharge will be sent shortly.' : 'ধন্যবাদ! আপনার উত্তর জমা হয়েছে। শীঘ্রই BDT ২০ রিচার্জ পাঠানো হবে.');
+                document.getElementById('nextBtn').style.display = 'none';
+                document.getElementById('prevBtn').style.display = 'none';
+            });
+        }
+
+        // ----- Navigation buttons -----
+        const nextBtn = document.getElementById('nextBtn');
+        const newNextBtn = nextBtn.cloneNode(true);
+        nextBtn.parentNode.replaceChild(newNextBtn, nextBtn);
+        newNextBtn.addEventListener('click', (e) => {
+            if (completed) {
+                alert(currentLang === 'en' ? 'Survey already completed. Thank you!' : 'জরিপ ইতিমধ্যে সম্পন্ন হয়েছে। ধন্যবাদ!');
+                return;
+            }
+            if (!isPageValid(currentPage)) {
+                alert(currentLang === 'en' ? 'Please answer all required questions before proceeding.' : 'অনুগ্রহ করে এগিয়ে যাওয়ার আগে সব প্রয়োজনীয় প্রশ্নের উত্তর দিন।');
+                return;
+            }
+            if (currentPage === 2) {
+                const selected = surveyData.q7;
+                if (selected === 'Yes') {
+                    currentPage = 3;
+                } else {
+                    currentPage = 8;
+                }
+                renderPage();
+                return;
+            }
+            if (currentPage < totalPages - 1) {
+                currentPage++;
+                renderPage();
+            }
+        });
+
+        document.getElementById('prevBtn').onclick = () => {
+            if (completed) return;
+            if (currentPage > 0) {
+                currentPage--;
+                renderPage();
+            }
+        };
+        document.getElementById('prevBtn').style.visibility = (currentPage === 0 || completed) ? 'hidden' : 'visible';
+        if (currentPage === totalPages-1) {
+            newNextBtn.style.display = 'none';
+        } else {
+            newNextBtn.style.display = '';
+        }
+    }
+
+    function updateProgress() {
+        const percent = ((currentPage + 1) / totalPages) * 100;
+        document.getElementById('progressFill').style.width = percent + '%';
+        document.getElementById('pageIndicator').innerHTML = `Page ${currentPage + 1} / ${totalPages}`;
+    }
+
+    document.querySelectorAll('#langToggle button').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('#langToggle button').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            currentLang = btn.getAttribute('data-lang');
+            renderPage();
+        });
+    });
+
+    renderPage();
+</script>
+</body>
+</html>

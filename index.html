@@ -423,7 +423,7 @@
                 "Important Information:",
                 "• Your responses will be kept confidential by the researchers and will be used solely for academic research purposes.",
                 "• Participation is entirely voluntary. You may stop at any time without consequence.",
-                "• The survey will take around 10 minutes to complete.",
+                "• The survey will take approximately 20 minutes to complete.",
                 "• There are no right or wrong answers. We value your honest opinions and experiences.",
                 "• Soon after you complete the survey, you will be sent an SMS and will be given a BDT 20 recharge on your mobile number (you must finish the entire survey). Additionally, among all respondents, we will select one winner of a lottery amounting to TK. 10,000. Thank you so much for your time and consideration.",
                 "By proceeding with this survey, you confirm that:",
@@ -443,7 +443,7 @@
                 "গুরুত্বপূর্ণ তথ্য:",
                 "• আপনার সব উত্তর সম্পূর্ণ গোপনীয় থাকবে এবং শুধুমাত্র একাডেমিক গবেষণার কাজে ব্যবহৃত হবে।",
                 "• এই জরিপে অংশগ্রহণ সম্পূর্ণ স্বেচ্ছামূলক; আপনি যেকোনো সময় বিনা কারণে থামতে পারবেন।",
-                "• জরিপটি সম্পন্ন করতে প্রায় ১০ মিনিট সময় লাগবে।",
+                "• জরিপটি সম্পন্ন করতে প্রায় ২০ মিনিট সময় লাগবে।",
                 "• কোনো উত্তর সঠিক বা ভুল নয়, আপনার নিজস্ব অভিজ্ঞতা ও অনুভূতিটাই এখানে সবচেয়ে গুরুত্বপূর্ণ।",
                 "• কৃতজ্ঞতাস্বরূপ, জরিপ সম্পন্ন করার পরপরই আপনার মোবাইলে BDT ২০ রিচার্জ পাঠানো হবে। এছাড়াও সকল অংশগ্রহণকারীর মধ্য থেকে লটারিতে একজন ভাগ্যবান বিজয়ী TK. ১০,০০০ পাবেন।",
                 "এগিয়ে যাওয়ার মাধ্যমে আপনি নিশ্চিত করছেন যে:",
@@ -665,14 +665,18 @@
             if (!q1 || q1.value.trim() === '') return false;
             const q2 = document.querySelector('input[name="q2_type"]:checked');
             if (!q2) return false;
+            if (q2.value === 'Other' && !surveyData.q2_other?.trim()) return false;
             const q3 = document.querySelector('input[name="q3_level"]:checked');
             if (!q3) return false;
+            if (q3.value === 'Other' && !surveyData.q3_other?.trim()) return false;
             const q4 = document.querySelector('input[name="q4_year"]:checked');
             if (!q4) return false;
             const q5 = document.querySelector('input[name="q5_field"]:checked');
             if (!q5) return false;
+            if ((q5.value === 'Other' || q5.value === 'Other specify') && !surveyData.q5_other?.trim()) return false;
             const q6 = document.querySelector('input[name="q6_status"]:checked');
             if (!q6) return false;
+            if (q6.value === 'Other' && !surveyData.q6_other?.trim()) return false;
             return true;
         }
         if (pageNum === 2) {
@@ -767,6 +771,7 @@
             const ageVal = parseInt(q73.value);
             if (isNaN(ageVal) || ageVal < 15 || ageVal > 100) return false;
             if (!q74) return false;
+            if (q74.value === 'Other' && !surveyData.q74_other?.trim()) return false;
             // Phone is optional but if filled must be valid Bangladeshi number
             const phone = document.getElementById('contact_phone');
             if (phone && phone.value.trim() !== '') {
@@ -854,6 +859,38 @@
             ['q2_other','q3_other','q5_other','q6_other'].forEach(name => {
                 const el = document.querySelector(`input[name="${name}"]`);
                 if (el) el.addEventListener('input', function() { surveyData[name] = this.value; });
+            });
+            // Show/hide "Other" text inputs based on radio selection
+            const otherFields = [
+                { radio: 'q2_type',   text: 'q2_other' },
+                { radio: 'q3_level',  text: 'q3_other' },
+                { radio: 'q5_field',  text: 'q5_other' },
+                { radio: 'q6_status', text: 'q6_other' },
+            ];
+            otherFields.forEach(({ radio, text }) => {
+                const textEl = document.querySelector(`input[name="${text}"]`);
+                if (!textEl) return;
+                // Insert a * span after the input if not already there
+                if (!textEl.nextElementSibling || !textEl.nextElementSibling.classList.contains('required-star')) {
+                    const star = document.createElement('span');
+                    star.className = 'required-star';
+                    star.textContent = ' *';
+                    textEl.parentNode.insertBefore(star, textEl.nextSibling);
+                }
+                const starEl = textEl.nextElementSibling;
+                // Set initial visibility
+                const isOtherSelected = surveyData[radio] === 'Other' || surveyData[radio] === 'Other specify';
+                textEl.style.display = isOtherSelected ? 'inline-block' : 'none';
+                if (starEl) starEl.style.display = isOtherSelected ? 'inline' : 'none';
+                // Wire up radios
+                document.querySelectorAll(`input[name="${radio}"]`).forEach(r => {
+                    r.addEventListener('change', () => {
+                        const isOther = r.value === 'Other' || r.value === 'Other specify';
+                        textEl.style.display = isOther ? 'inline-block' : 'none';
+                        if (starEl) starEl.style.display = isOther ? 'inline' : 'none';
+                        if (!isOther) { textEl.value = ''; surveyData[text] = ''; }
+                    });
+                });
             });
         }
         // ----- Page 2: UIC Screening -----
@@ -1212,6 +1249,27 @@
                     el.addEventListener('input', (e) => surveyData[id] = e.target.value);
                 }
             });
+            // Show/hide Q74 other text input
+            const q74OtherInput = document.getElementById('q74_other');
+            if (q74OtherInput) {
+                // Insert * star after input
+                if (!q74OtherInput.nextElementSibling || !q74OtherInput.nextElementSibling.classList.contains('required-star')) {
+                    const star = document.createElement('span');
+                    star.className = 'required-star';
+                    star.textContent = ' *';
+                    q74OtherInput.parentNode.insertBefore(star, q74OtherInput.nextSibling);
+                }
+                const q74Star = q74OtherInput.nextElementSibling;
+                q74OtherInput.style.display = surveyData.q74 === 'Other' ? 'inline-block' : 'none';
+                if (q74Star) q74Star.style.display = surveyData.q74 === 'Other' ? 'inline' : 'none';
+                document.querySelectorAll('input[name="q74"]').forEach(r => {
+                    r.addEventListener('change', () => {
+                        q74OtherInput.style.display = r.value === 'Other' ? 'inline-block' : 'none';
+                        if (q74Star) q74Star.style.display = r.value === 'Other' ? 'inline' : 'none';
+                        if (r.value !== 'Other') { q74OtherInput.value = ''; surveyData.q74_other = ''; }
+                    });
+                });
+            }
             for (let name of ['q67','q68','q69','q70','q71','q72','q74','q76']) {
                 const radios = document.querySelectorAll(`input[name="${name}"]`);
                 radios.forEach(radio => radio.addEventListener('change', (e) => surveyData[name] = e.target.value));
@@ -1299,17 +1357,17 @@
                     if (q73) {
                         const ageVal = parseInt(q73.value);
                         if (!q73.value.trim() || isNaN(ageVal) || ageVal < 15 || ageVal > 100) {
-                            alert(currentLang === 'en' ? 'Please enter a valid age (15–100).' : 'অনুগ্রহ করে একটি সঠিক বয়স লিখুন (১৫–১০০)।');
+                            alert(currentLang === 'en' ? 'Please enter a valid age (15–100) in the field marked with *.' : 'অনুগ্রহ করে * চিহ্নিত ঘরে একটি সঠিক বয়স লিখুন (১৫–১০০)।');
                             return;
                         }
                     }
                     const phone = document.getElementById('contact_phone');
                     if (phone && phone.value.trim() !== '' && !/^01[3-9][0-9]{8}$/.test(phone.value.trim())) {
-                        alert(currentLang === 'en' ? 'Please enter a valid Bangladeshi phone number (e.g. 01XXXXXXXXX).' : 'অনুগ্রহ করে একটি সঠিক বাংলাদেশি ফোন নম্বর দিন (যেমন: 01XXXXXXXXX)।');
+                        alert(currentLang === 'en' ? 'Please enter a valid Bangladeshi phone number (e.g. 01711000000).' : 'অনুগ্রহ করে একটি সঠিক বাংলাদেশি ফোন নম্বর দিন (যেমন: ০১৭১১০০০০০০)।');
                         return;
                     }
                 }
-                alert(currentLang === 'en' ? 'Please answer all required questions before proceeding.' : 'অনুগ্রহ করে এগিয়ে যাওয়ার আগে সব প্রয়োজনীয় প্রশ্নের উত্তর দিন।');
+                alert(currentLang === 'en' ? 'Please answer all questions marked with *.' : 'অনুগ্রহ করে * চিহ্নিত সকল প্রশ্নের উত্তর দিন।');
                 return;
             }
             if (currentPage === 2) {

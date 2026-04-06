@@ -772,6 +772,8 @@
             if (isNaN(ageVal) || ageVal < 15 || ageVal > 100) return false;
             if (!q74) return false;
             if (q74.value === 'Other' && !surveyData.q74_other?.trim()) return false;
+            const q76 = document.querySelector('input[name="q76"]:checked');
+            if (!q76) return false;
             // Phone is optional but if filled must be valid Bangladeshi number
             const phone = document.getElementById('contact_phone');
             if (phone && phone.value.trim() !== '') {
@@ -1233,7 +1235,7 @@
             q74Html += `</div>`;
             html += `<div class="question">${q74Text} <span class="required-star">*</span> ${q74Html}</div>`;
             html += `<div class="question">${q75Text}<br><textarea rows="3" id="q75_comment">${surveyData.q75_comment || ''}</textarea></div>`;
-            html += `<div class="question">${q76Text}<br>${makeRadioGroup('q76', q76Opts, surveyData.q76)}</div>`;
+            html += `<div class="question">${q76Text} <span class="required-star">*</span><br>${makeRadioGroup('q76', q76Opts, surveyData.q76)}</div>`;
             html += `<div class="question"><hr><h4>${currentLang === 'en' ? 'If you selected Yes, please provide contact details (optional):' : 'যদি হ্যাঁ হয়, অনুগ্রহ করে আপনার যোগাযোগের তথ্য দিন (ঐচ্ছিক):'}</h4>`;
             html += `<div>${contactName} <input type="text" id="contact_name" value="${surveyData.contact_name || ''}"></div>`;
             html += `<div>${contactPhone} <span style="font-weight:500;">+88</span> <input type="tel" id="contact_phone" style="width:calc(100% - 3.5rem);" placeholder="01XXXXXXXXX" pattern="01[3-9][0-9]{8}" maxlength="11" value="${surveyData.contact_phone || ''}"></div>`;
